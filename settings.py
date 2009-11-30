@@ -47,6 +47,9 @@ MEDIA_ROOT = os.path.join(MAIN_PATH, 'media')
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = ''
 
+# The path to the music directory that contains all of the music files.
+MUSIC_DIR = os.path.join(MAIN_PATH, 'music')
+
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
