@@ -1,6 +1,7 @@
 from django.db import models
+from django.conf import settings
 
-class Song(models.Music):
+class Song(models.Model):
     title = models.CharField(max_length=255)
     artist = models.CharField(max_length=255)
     genre = models.CharField(max_length=255, blank=True)
@@ -12,6 +13,7 @@ class Song(models.Music):
     request_count = models.IntegerField(default=0)
     # Average of all ratings for this song.
     rating = models.FloatField(blank=True, null=True)
+    file = models.FileField(upload_to=settings.MUSIC_DIR_NAME, max_length=255)
 
     class Meta:
         ordering = ['artist', 'disc_number', 'track_number', 'title']
