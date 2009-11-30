@@ -1,0 +1,21 @@
+h1 { font-weight: bold; }
+h2 { font-weight: bold; }
+
+/* MODULE STYLES */
+#song_queue { background-color: #DDDDFF; margin-left: 1px; margin-top: 18px; 
+			 padding: 0.1cm;
+			 border: solid .01em #888888;}
+			 
+#search_tool { background-color: #DDDDFF; margin-left: 1px; margin-top: 18px; 
+			 padding: 0.1cm;
+			 border: solid .01em #888888;}
+
+#upload_tool { background-color: #DDDDFF; margin-left: 1px; margin-top: 18px; 
+			 padding: 0.1cm;
+			 border: solid .01em #888888;}
+					 
+/* SONG QUEUE STYLES */
+.recently_played_track { color: #AAAAAA;}
+.currently_playing_track { color: #44BB44; font-weight: bold; }
+.upcoming_requested_track { color: #222222; font-weight: bold; }
+.upcoming_random_track { color: #222222;}
