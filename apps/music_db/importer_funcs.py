@@ -3,6 +3,7 @@ Functions related to importing music to the Song DB.
 """
 import os
 from django.conf import settings
+import mutagen
 from mutagen.id3 import ID3
 from apps.music_db.models import Song
 
