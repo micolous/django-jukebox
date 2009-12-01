@@ -5,12 +5,24 @@ Anything in local_settings.py will override what is seen here.
 """
 import os
 
+# The path to the root directory of the project (has this settings.py 
+# file in it) with trailing slash.
+MAIN_PATH = os.path.abspath(os.path.split(__file__)[0])
+# Absolute path to the directory that holds media.
+# Example: "/home/media/media.lawrence.com/"
+MEDIA_ROOT = os.path.join(MAIN_PATH, 'media')
 # The number of decently rated (3+) songs in a random playlist.
+# Name of the directory that contains music (not a full path).
+MUSIC_DIR_NAME = 'music'
+# The path to the music directory that contains all of the music files.
+MUSIC_DIR = os.path.join(MEDIA_ROOT, MUSIC_DIR_NAME)
+
 RANDOM_REQ_GOOD_RATED_SONGS = 8
 # Any song with a rating greater or equal to this value is considered 'good'.
 RANDOM_REQ_GOOD_RATING = 3
 # The number of songs with no rating in a random playlist.
 RANDOM_REQ_UPCOMING = 4
+
 # Command line string to play audio files. There should be one string
 # substitution, which will be the full path to the file to play.
 CLI_PLAYER_COMMAND_STR = "mplayer -really-quiet -af volume %s"
@@ -22,18 +34,20 @@ DJANGO_SERVE_MEDIA = False
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
-
-# The path to the root directory of the project (has this settings.py file in it) with trailing slash.
-MAIN_PATH = os.path.abspath(os.path.split(__file__)[0])
-
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'djangojuke.db3'             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+# 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = 'sqlite3'
+# Or path to database file if using sqlite3.
+DATABASE_NAME = os.path.join(MAIN_PATH, 'djangojuke.db3')
+# Not used with sqlite3.
+DATABASE_USER = ''
+# Not used with sqlite3.         
+DATABASE_PASSWORD = ''
+# Set to empty string for localhost. Not used with sqlite3.
+DATABASE_HOST = ''
+# Set to empty string for default. Not used with sqlite3.
+DATABASE_PORT = ''
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -50,21 +64,12 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(MAIN_PATH, 'media')
+USE_I18N = False
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = ''
-
-# Name of the directory that contains music (not a full path).
-MUSIC_DIR_NAME = 'music'
-# The path to the music directory that contains all of the music files.
-MUSIC_DIR = os.path.join(MEDIA_ROOT, MUSIC_DIR_NAME)
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.

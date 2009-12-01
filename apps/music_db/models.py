@@ -46,7 +46,7 @@ class Song(models.Model):
             file_path = self.file
         try:
             tag = ID3(file_path)
-            print tag
+            #print tag
             # Map ID3 tags to columns in the Song table.
             # ID3 Reference: http://www.id3.org/id3v2.4.0-frames
             try:
@@ -87,9 +87,16 @@ def song_pre_save(sender, instance, *args, **kwargs):
     # If the Item has a Null or False value for its 'id' field, it's a new
     # item. Give it a new num_in_job.
     if not instance.id:
+        if hasattr(instance.file.file, 'temporary_file_path'):
+            # This is probably being uploaded from a form. Use TempUploadFile
+            # to figure out where the file is -currently- (before being saved).
+            file_path = instance.file.file.temporary_file_path()
+        else:
+            # This song is being added via a script and is already probably
+            # in the music directory.
+            file_path = instance.file.path
         # New Song, scan ID3 tags for file.
-        temp_upload_file = instance.file.file.temporary_file_path()
-        instance.populate_from_id3_tags(file_path=temp_upload_file)
+        instance.populate_from_id3_tags(file_path=file_path)
 signals.pre_save.connect(song_pre_save, sender=Song)
 
 def song_pre_delete(sender, instance, *args, **kwargs):
