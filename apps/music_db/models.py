@@ -3,6 +3,7 @@ import mutagen
 from mutagen.id3 import ID3
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db.models import signals
 
 class Song(models.Model):
@@ -24,6 +25,8 @@ class Song(models.Model):
     request_count = models.IntegerField(default=0)
     # Average of all ratings for this song.
     rating = models.FloatField(blank=True, null=True)
+    # Cache number of ratings for easier querying in playlist generation.
+    num_ratings = models.IntegerField(default=0)
     file = models.FileField(upload_to=settings.MUSIC_DIR_NAME, max_length=255)
     # When the song was added to the library.
     time_added = models.DateTimeField(auto_now_add=True)
@@ -105,3 +108,11 @@ def song_pre_delete(sender, instance, *args, **kwargs):
     """
     instance.file.delete()
 signals.pre_delete.connect(song_pre_delete, sender=Song)
+
+class SongRating(models.Model):
+    """
+    Represents a rating for a song, as provided by an authenticated User.
+    """
+    song = models.ForeignKey(Song)
+    user = models.ForeignKey(User)
+    rating = models.FloatField()

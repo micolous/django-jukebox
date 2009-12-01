@@ -22,6 +22,9 @@ RANDOM_REQ_GOOD_RATED_SONGS = 8
 RANDOM_REQ_GOOD_RATING = 3
 # The number of songs with no rating in a random playlist.
 RANDOM_REQ_UPCOMING = 4
+# Songs that have more than this number of ratings can no longer be
+# considered 'upcoming'.
+RANDOM_REQ_UPCOMING_MAX_RATINGS = 4
 
 # Command line string to play audio files. There should be one string
 # substitution, which will be the full path to the file to play.
