@@ -11,6 +11,9 @@ RANDOM_REQ_GOOD_RATED_SONGS = 8
 RANDOM_REQ_GOOD_RATING = 3
 # The number of songs with no rating in a random playlist.
 RANDOM_REQ_UPCOMING = 4
+# Command line string to play audio files. There should be one string
+# substitution, which will be the full path to the file to play.
+CLI_PLAYER_COMMAND_STR = "mplayer -really-quiet -af volume %s"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
