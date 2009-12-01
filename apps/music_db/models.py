@@ -5,8 +5,9 @@ class Song(models.Model):
     """
     This model represents a single song in the library.
     """
-    title = models.CharField(max_length=255)
-    artist = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, default="Unknown")
+    artist = models.CharField(max_length=255, default="Unknown")
+    album = models.CharField(max_length=255, blank=True)
     genre = models.CharField(max_length=255, blank=True)
     # Song length (seconds)
     length = models.IntegerField(blank=True, null=True)
