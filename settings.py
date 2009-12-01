@@ -1,5 +1,16 @@
+"""
+Master default settings file. Do not change any of the values below directly.
+Create a local_settings.py file, copy the variables, and change them there.
+Anything in local_settings.py will override what is seen here.
+"""
 import os
-# Django settings for djangojuke project.
+
+# The number of decently rated (3+) songs in a random playlist.
+RANDOM_REQ_GOOD_RATED_SONGS = 8
+# Any song with a rating greater or equal to this value is considered 'good'.
+RANDOM_REQ_GOOD_RATING = 3
+# The number of songs with no rating in a random playlist.
+RANDOM_REQ_UPCOMING = 4
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

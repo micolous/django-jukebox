@@ -5,6 +5,7 @@ includes stuff like song request queues and histories.
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from apps.music_player.managers import SongRequestManager
 
 class SongRequest(models.Model):
     """
@@ -17,6 +18,8 @@ class SongRequest(models.Model):
     time_requested = models.DateTimeField(auto_now_add=True)
     # When non-None, this request has been played.
     time_played = models.DateTimeField(blank=True, null=True)
+    
+    objects = SongRequestManager()
 
     class Meta:
         ordering = ['-id']
