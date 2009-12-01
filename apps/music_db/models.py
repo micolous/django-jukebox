@@ -41,13 +41,44 @@ class Song(models.Model):
         file: (string) Path to a file to load from instead of the default
                        one for this object.
         """
-        if not file:
+        if not file_path:
             # Assume the object's file field unless otherwise specified.
-            file = self.file
-        tag = ID3(file)
-        print tag
-        #self.title = tag['TIT2']
-    
+            file_path = self.file
+        try:
+            tag = ID3(file_path)
+            print tag
+            # Map ID3 tags to columns in the Song table.
+            # ID3 Reference: http://www.id3.org/id3v2.4.0-frames
+            try:
+                self.title = str(tag['TIT2'])
+            except KeyError:
+                pass
+            
+            try:
+                self.artist = str(tag['TPE1'])
+            except KeyError:
+                pass
+            
+            try:
+                self.album = str(tag['TALB'])
+            except KeyError:
+                pass
+            
+            try:
+                self.genre = str(tag['TCON'])
+            except KeyError:
+                pass
+            
+            # Track numbers are stored in ID3 tags as '1/10' (track/total tracks)
+            # Split and just store the track number.
+            try:
+                self.track_number = str(tag['TRCK']).split('/')[0]
+            except KeyError:
+                pass
+            
+        except mutagen.id3.ID3NoHeaderError:
+            print 'Warning: NoID3Header'
+        
 def song_pre_save(sender, instance, *args, **kwargs):
     """
     Things to happen in the point of saving an song before the actual save()
