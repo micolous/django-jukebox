@@ -34,12 +34,17 @@ class Song(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.artist, self.title)
     
-    def populate_from_id3_tags(self):
+    def populate_from_id3_tags(self, file_path=None):
         """    
         Read ID3 tags of the mp3 file.
+        
+        file: (string) Path to a file to load from instead of the default
+                       one for this object.
         """
-        path = os.path.join(settings.MUSIC_DIR, str(self.file))
-        tag = ID3(path)
+        if not file:
+            # Assume the object's file field unless otherwise specified.
+            file = self.file
+        tag = ID3(file)
         print tag
         #self.title = tag['TIT2']
     
@@ -52,7 +57,8 @@ def song_pre_save(sender, instance, *args, **kwargs):
     # item. Give it a new num_in_job.
     if not instance.id:
         # New Song, scan ID3 tags for file.
-        instance.populate_from_id3_tags()
+        temp_upload_file = instance.file.file.temporary_file_path()
+        instance.populate_from_id3_tags(file_path=temp_upload_file)
 signals.pre_save.connect(song_pre_save, sender=Song)
 
 def song_pre_delete(sender, instance, *args, **kwargs):
