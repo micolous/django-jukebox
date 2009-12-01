@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import signals
 
 class Song(models.Model):
     """
@@ -29,3 +30,10 @@ class Song(models.Model):
     
     def __unicode__(self):
         return "%s - %s" % (self.artist, self.title)
+    
+def song_pre_delete(sender, instance, *args, **kwargs):
+    """
+    Clean up misc. stuff before a Song is deleted.
+    """
+    instance.file.delete()
+signals.pre_delete.connect(song_pre_delete, sender=Song)
