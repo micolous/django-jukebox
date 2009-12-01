@@ -1,3 +1,6 @@
+import os
+import mutagen
+from mutagen.id3 import ID3
 from django.db import models
 from django.conf import settings
 from django.db.models import signals
@@ -31,6 +34,27 @@ class Song(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.artist, self.title)
     
+    def populate_from_id3_tags(self):
+        """    
+        Read ID3 tags of the mp3 file.
+        """
+        path = os.path.join(settings.MUSIC_DIR, str(self.file))
+        tag = ID3(path)
+        print tag
+        #self.title = tag['TIT2']
+    
+def song_pre_save(sender, instance, *args, **kwargs):
+    """
+    Things to happen in the point of saving an song before the actual save()
+    call happens.
+    """
+    # If the Item has a Null or False value for its 'id' field, it's a new
+    # item. Give it a new num_in_job.
+    if not instance.id:
+        # New Song, scan ID3 tags for file.
+        instance.populate_from_id3_tags()
+signals.pre_save.connect(song_pre_save, sender=Song)
+
 def song_pre_delete(sender, instance, *args, **kwargs):
     """
     Clean up misc. stuff before a Song is deleted.
