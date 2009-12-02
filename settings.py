@@ -25,6 +25,10 @@ RANDOM_REQ_UPCOMING = 4
 # Songs that have more than this number of ratings can no longer be
 # considered 'upcoming'.
 RANDOM_REQ_UPCOMING_MAX_RATINGS = 4
+# This is the number of seconds that the juke_daemon will sleep if it ever
+# finds the SongRequest queue empty. This should never happen, but it's here
+# as a fail-safe.
+TIME_TO_SLEEP_WHEN_QUEUE_EMPTY = 10
 
 # Number of previous songs to display in queue.
 NUMBER_OF_PREVIOUS_SONGS_DISPLAY = 5

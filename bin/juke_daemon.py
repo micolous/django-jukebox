@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 """
-Starts the audio daemon server.
+Starts the audio daemon server. The idea is to check for an SongRequest
+objects that have no time_played value. The daemon will play each of these
+in order via a simple loop.
+
+juke_daemon has no intelligence other than taking the first request off of the
+queue and playing it. Playlist generation is handled by random_requester.py.
 """
 import sys
 import os
@@ -14,5 +19,5 @@ from twisted.internet import reactor
 from apps.juke_daemon import daemon
 
 print "Starting jukebox daemon..."
-daemon.start_daemon_loop()
+daemon.daemon_loop()
 print "django_jukebox daemon shutdown."
