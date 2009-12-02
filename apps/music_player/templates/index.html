@@ -27,10 +27,33 @@
  			load_div("song_search", "{% url music_player-song_search %}");
 		}
 
+		function search_request() {
+			/*
+			 * Fired when he user hits the Search button. Calls the validator
+			 * and sends off an AJAX request if all is good.
+			 */             
+			YAHOO.example.container.wait.show();
+			new Ajax.Request('{% url music_player-song_search %}', {
+			    method: 'POST',
+			    parameters: Form.serialize('song_form'),
+			    onSuccess: function(http_req) {
+			        // Get a JSON object from the response string (from the server).
+			        jsobj = http_req.responseText.evalJSON();
+			        // See if there was a form processing error.
+			        if (jsobj["is_error"] == false) {
+			        } else {
+			            // Form validation error happened.
+			            alert(jsobj["message"]);
+			        }
+			    },
+			    onComplete: function() {
+			}});
+		}
+
    		function on_load() { 
    			load_song_queue();
    			load_song_search();
-		  }
+		}
 
 		window.onload=on_load();
 		
@@ -40,23 +63,28 @@
 <body>
 
 <div id="doc" class="yui-t3">
-   <div id="hd" role="banner"><img src="{{MEDIA_URL}}img/jukebox.png"></div>
-	   	<div id="bd" role="main">
-			<div id="yui-main">
-				<div class="yui-b">
-					<div id="song_search" class="yui-g">
-						{% include "song_search.html" %}
-					</div>
-					<div id="upload_tool" class="yui-g">
-						{% include "song_upload.html" %}
-					</div>
+	<div id="hd" role="banner">
+			<img src="{{MEDIA_URL}}img/jukebox.png"> {{page_title}}
+	</div>
+  	<div id="bd" role="main">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div id="song_search" class="yui-g">
+					{% include "song_search.html" %}
+				</div>
+				<div id="upload_tool" class="yui-g">
+					{% include "song_upload.html" %}
 				</div>
 			</div>
-			<div id="song_queue" class="yui-b">
-				{% include "song_list.html" %}
-			</div>
 		</div>
-   <div id="ft" role="contentinfo"><p><a href="http://code.google.com/p/django-jukebox/">Django JukeBox</a> GNU General Public License v3</p></div>
+		<div id="song_queue" class="yui-b">
+			{% include "song_list.html" %}
+		</div>
+	</div>
+  	<div id="ft" role="contentinfo">
+  		<p><a href="http://code.google.com/p/django-jukebox/">Django JukeBox</a> 
+  		GNU General Public License v3</p>
+  	</div>
 </div>
 
 </body>

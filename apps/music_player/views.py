@@ -28,7 +28,6 @@ def display_song_queue(request):
     user requests, then upcoming random requests.
     """
     currently_playing_track = SongRequest.objects.filter(time_played__isnull=False).order_by('-time_played')[0]
-    print currently_playing_track
     recently_played_tracks = SongRequest.objects.filter(time_played__isnull=False).exclude(id=currently_playing_track.id).order_by('-time_played')[:settings.NUMBER_OF_PREVIOUS_SONGS_DISPLAY]
     
     """
@@ -62,7 +61,7 @@ class SongSearchForm(forms.Form):
     """
     Search form model. Only one field that will search across multiple columns.
     """
-    keyword = forms.CharField(required=True)
+    keyword = forms.CharField()
 
 def song_search(request):
     """
@@ -72,21 +71,29 @@ def song_search(request):
     
     if request.POST and form.is_valid():
         qset=Song.objects.all()
-        s_search = form.cleaned_data.get("search", None)
+        s_search = form.cleaned_data.get("keyword", None)
         if s_search:
-            qset = qset.filter(artist=s_search)
+            qset = qset.filter(artist__icontains=s_search)
+            
+        pagevars = {
+            "page_title": "Search Results",
+            "form": SongSearchForm(),
+            "qset": qset,
+        }
+        
+        context_instance = RequestContext(request)
+        return render_to_response('song_results.html', pagevars, 
+                                  context_instance)
+
     else:
-        qset = None
-
-    pagevars = {
-        "page_title": "Song Search",
-        "form": SongSearchForm(),
-        "qset": qset,
-    }
-
-    context_instance = RequestContext(request)
-    return render_to_response('song_search.html', pagevars, 
-                              context_instance)
+        pagevars = {
+            "page_title": "Song Search",
+            "form": SongSearchForm(),
+        }
+        
+        context_instance = RequestContext(request)
+        return render_to_response('song_search.html', pagevars, 
+                                  context_instance)
         
 def song_search_results(request, form=None, qset=Song.objects.all()):
     """
