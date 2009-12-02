@@ -26,6 +26,11 @@ RANDOM_REQ_UPCOMING = 4
 # considered 'upcoming'.
 RANDOM_REQ_UPCOMING_MAX_RATINGS = 4
 
+# Number of previous songs to display in queue.
+NUMBER_OF_PREVIOUS_SONGS_DISPLAY = 5
+# Limit to number of songs in queue to be played.
+LIMIT_UPCOMING_SONGS_DISPLAY = 15
+
 # The command used to have your CLI player play an audio file.
 # A list formatted for subprocess.call().
 CLI_PLAYER_COMMAND_STR = ['mplayer', '-really-quiet', '-af', 'volume']
@@ -87,6 +92,13 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (
