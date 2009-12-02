@@ -1,18 +1,20 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
- "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
    <title>django-juke beta</title>
    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
-   <link rel="stylesheet" href="../../../media/css/default.css" type="text/css" />	
+   <link rel="stylesheet" href="{{MEDIA_URL}}css/default.css" type="text/css" />	
 </head>
-<body>
+
 <div id="doc" class="yui-t3">
-   <div id="hd" role="banner"><img src="../../../media/img/jukebox.png"></div>
+   <div id="hd" role="banner"><img src="{{MEDIA_URL}}/img/jukebox.png"></div>
 	   	<div id="bd" role="main">
 			<div id="yui-main">
 				<div class="yui-b">
 					<div id="search_tool" class="yui-g">
+						{% include "song_search.html" %}
 						<h2>SONG SEARCH</h2>
 						<form>
 						<input type="text" name="artist" id="id_artist" />
@@ -25,6 +27,7 @@
 						song - artist<br />
 					</div>
 					<div id="upload_tool" class="yui-g">
+					{% include "song_upload.html" %}
 						<h2>SONG UPLOAD</h2>
 						<form>
 						<input type="text" name="artist" id="id_artist" />
@@ -34,6 +37,7 @@
 				</div>
 			</div>
 			<div id="song_queue" class="yui-b">
+				{% include "song_list.html" %}
 				<h2>SONG LIST</h2>
 				<ul>
 					<li class="recently_played_track">Artist - Song</li>
@@ -57,5 +61,3 @@
 		</div>
    <div id="ft" role="contentinfo"><p><a href="http://code.google.com/p/django-jukebox/">Django JukeBox</a> GNU General Public License v3</p></div>
 </div>
-</body>
-</html>
