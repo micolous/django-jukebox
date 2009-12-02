@@ -27,9 +27,14 @@ def display_song_queue(request):
     """
     currently_playing_track = SongRequest.objects.filter(time_played__isnull=False).order_by('-time_played')[0]
     print currently_playing_track
-    recently_played_tracks = SongRequest.objects.filter(time_played__isnull=False).exclude(id=currently_playing_track.id).order_by('-time_played')
+    recently_played_tracks = SongRequest.objects.filter(time_played__isnull=False).exclude(id=currently_playing_track.id).order_by('-time_played')[:settings.NUMBER_OF_PREVIOUS_SONGS_DISPLAY]
     
-    # Determine total number of songs being displayed.
+    """
+    Determine total number of songs being displayed. Display as many songs as
+    have been requested by users, but if that number is less than the 
+    LIMIT_UPCOMING_SONGS_DISPLAY setting, fill out with randomly generated requests
+    until that number is reached.
+    """
     total_displayed_songs = settings.LIMIT_UPCOMING_SONGS_DISPLAY
     upcoming_requested_tracks = SongRequest.objects.filter(time_played__isnull=True).exclude(requester=None).order_by('time_requested')    
     if upcoming_requested_tracks.count() < total_displayed_songs:
@@ -37,7 +42,7 @@ def display_song_queue(request):
         upcoming_random_tracks = SongRequest.objects.filter(time_played__isnull=True, requester=None).order_by('time_requested')[:random_song_display_limit]
     else:
         upcoming_random_tracks = None
-        
+
     pagevars = {
         "page_title": "Song Queue",
         "recently_played_tracks": recently_played_tracks,
