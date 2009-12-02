@@ -25,5 +25,5 @@ class SongRequest(models.Model):
         ordering = ['-id']
     
     def __unicode__(self):
-        return "%s requests %s - %s" % (self.requester, self.artist, 
-                                        self.title)
+        return "%s requests %s - %s" % (self.requester, self.song.artist, 
+                                        self.song.title)
