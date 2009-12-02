@@ -117,6 +117,7 @@ INSTALLED_APPS = (
     'apps.music_db',
     'apps.music_player',
     'apps.music_uploader',
+    'apps.audio_daemon',
 )
 
 """
