@@ -26,9 +26,9 @@ RANDOM_REQ_UPCOMING = 4
 # considered 'upcoming'.
 RANDOM_REQ_UPCOMING_MAX_RATINGS = 4
 
-# Command line string to play audio files. There should be one string
-# substitution, which will be the full path to the file to play.
-CLI_PLAYER_COMMAND_STR = "mplayer -really-quiet -af volume %s"
+# The command used to have your CLI player play an audio file.
+# A list formatted for subprocess.call().
+CLI_PLAYER_COMMAND_STR = ['mplayer', '-really-quiet', '-af', 'volume']
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
