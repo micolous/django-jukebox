@@ -53,3 +53,15 @@ def display_song_queue(request):
 
     context_instance = RequestContext(request)
     return render_to_response('song_list.html', pagevars, context_instance)
+
+def song_search(request):
+    """
+    Search form for songs. Find songs, request them.
+    """
+    
+    pagevars = {
+        "page_title": "Song Search",
+    }
+
+    context_instance = RequestContext(request)
+    return render_to_response('song_search.html', pagevars, context_instance)

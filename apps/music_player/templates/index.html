@@ -3,10 +3,41 @@
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>django-juke beta</title>
+   <title>{{page_title}}</title>
+   
    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
    <link rel="stylesheet" href="{{MEDIA_URL}}css/default.css" type="text/css" />	
+   
+   <script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
+   <script type="text/javascript">
+	   /* 
+	   Loads a div with the result of an Ajax Updater request (via Prototype.js).
+	   div_target (string): ID of the <div> tag whose contents will be updated.
+	   url (string): The URL to request and update into the <div> from.
+		*/
+		function load_div(div_target, url) {
+		   new Ajax.Updater(div_target, url);
+		} // end load_div()
+		  
+   		function load_song_queue() {
+ 			load_div("song_queue", "{% url music_player-display_song_queue %}");
+		}
+
+   		function load_song_search() {
+ 			load_div("song_search", "{% url music_player-song_search %}");
+		}
+
+   		function on_load() { 
+   			load_song_queue();
+   			load_song_search();
+		  }
+
+		window.onload=on_load();
+		
+   </script>
 </head>
+
+<body>
 
 <div id="doc" class="yui-t3">
    <div id="hd" role="banner"><img src="{{MEDIA_URL}}img/jukebox.png"></div>
@@ -15,24 +46,9 @@
 				<div class="yui-b">
 					<div id="search_tool" class="yui-g">
 						{% include "song_search.html" %}
-						<h2>SONG SEARCH</h2>
-						<form>
-						<input type="text" name="artist" id="id_artist" />
-						<input type="submit" value="Search" />
-						</form>
-						Results (Click to request):<br />
-						song - artist<br />
-						song - artist<br />
-						song - artist<br />
-						song - artist<br />
 					</div>
 					<div id="upload_tool" class="yui-g">
-					{% include "song_upload.html" %}
-						<h2>SONG UPLOAD</h2>
-						<form>
-						<input type="text" name="artist" id="id_artist" />
-						<input type="submit" value="Browse..." />
-						</form>
+						{% include "song_upload.html" %}
 					</div>
 				</div>
 			</div>
@@ -42,3 +58,5 @@
 		</div>
    <div id="ft" role="contentinfo"><p><a href="http://code.google.com/p/django-jukebox/">Django JukeBox</a> GNU General Public License v3</p></div>
 </div>
+
+</body>
