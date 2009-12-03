@@ -61,6 +61,18 @@ DATABASE_HOST = ''
 # Set to empty string for default. Not used with sqlite3.
 DATABASE_PORT = ''
 
+AUTHENTICATION_BACKENDS = (
+    # Un-comment this in your local_settings.py if you want LDAP authentication.
+    # Make -SURE- to set the LDAP settings below.
+    #'auth_backends.auth_ldap.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# The LDAP connection string.
+LDAP_HOST = 'ldap://some.ldaphost.com'
+# The DN to authenticate users to for authentication.
+LDAP_USER_BIND_DN = 'uid=%s,cn=users,dc=some,dc=ldaphost,dc=com'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
