@@ -12,7 +12,7 @@ apache_configuration= os.path.dirname(__file__)
 project = os.path.dirname(apache_configuration)
 
 # Directory immediately above gchub_db 
-if workspace not in sys.path:
+if project not in sys.path:
     sys.path.insert(0, project) 
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
