@@ -39,7 +39,7 @@ LIMIT_UPCOMING_SONGS_DISPLAY = 15
 # A list formatted for subprocess.call().
 CLI_PLAYER_COMMAND_STR = ['mplayer', '-really-quiet', '-af', 'volume']
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 DJANGO_SERVE_MEDIA = False
 
