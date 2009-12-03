@@ -11,7 +11,6 @@ sys.path.insert(0, project_dir)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 # Back to the ordinary imports
 from django.conf import settings
-from twisted.internet import reactor
 from apps.music_player import random_requester
 
 random_requester.fill_random_request_queue()
