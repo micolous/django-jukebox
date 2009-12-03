@@ -29,6 +29,8 @@ class Song(models.Model):
     # Cache number of ratings for easier querying in playlist generation.
     num_ratings = models.IntegerField(default=0)
     file = models.FileField(upload_to=settings.MUSIC_DIR_NAME, max_length=255)
+    # Who added (uploaded) the Song.
+    added_by = models.ForeignKey(User, blank=True, null=True)
     # When the song was added to the library.
     time_added = models.DateTimeField(auto_now_add=True)
     
