@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    (r'^django_jukebox/', include('django_jukebox.apps.music_player.urls')),
+    (r'^django_jukebox/', include('apps.music_player.urls')),
 
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
