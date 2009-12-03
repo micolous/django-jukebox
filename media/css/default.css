@@ -18,6 +18,9 @@ a:active { text-decoration:underline }
 			 
 #song_search { background-color: #DDDDFF; margin: 1px; 
 			 padding: 5px;}
+			 
+#song_search_results { background-color: #DDDDFF; margin: 1px; 
+			 padding: 5px;}
 
 #upload_tool { background-color: #DDDDFF; margin: 1px; 
 			 padding: 5px;}

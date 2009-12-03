@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.forms import ModelForm
 from apps.music_db.models import Song
 from apps.music_player.models import SongRequest
+from includes.json import JSMessage
 
 def music_player_main(request):
     """
@@ -75,15 +76,11 @@ def song_search(request):
         if s_search:
             qset = qset.filter(artist__icontains=s_search)
             
-        pagevars = {
-            "page_title": "Search Results",
-            "form": SongSearchForm(),
-            "qset": qset,
-        }
+        results = {
+            "qset": qset
+            }
         
-        context_instance = RequestContext(request)
-        return render_to_response('song_results.html', pagevars, 
-                                  context_instance)
+        return HttpResponse(simplejson.dumps(results))
 
     else:
         pagevars = {
@@ -95,14 +92,25 @@ def song_search(request):
         return render_to_response('song_search.html', pagevars, 
                                   context_instance)
         
-def song_search_results(request, form=None, qset=Song.objects.all()):
+def song_search_results(request, qset=Song.objects.all()):
     """
     Query Song model based on search input.
     """
-    if form:
-        # Incoming search!
-        s_search = form.cleaned_data.get("search", None)
-        if s_search:
-            qset = qset.filter(artist=s_search)
-            
+    pagevars = {
+            "page_title": "Song Search Results",
+            "qset": qset,
+            }
     
+    context_instance = RequestContext(request)
+    return render_to_response('song_results.html', pagevars, 
+                              context_instance)
+            
+def request_song(request, song_id):
+    """
+    Request the song.
+    """
+    song = Song.objects.get(id=song_id)
+    request = SongRequest(song=song,
+                          requester=request.user)
+    request.save()
+    return HttpResponse(JSMessage("Song Requested."))

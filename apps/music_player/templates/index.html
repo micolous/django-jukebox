@@ -27,6 +27,31 @@
  			load_div("song_search", "{% url music_player-song_search %}");
 		}
 
+   		function load_song_search_results() {
+ 			load_div("song_search_results", "{% url music_player-song_search_results %}");
+		}
+
+   		function request_song(song_id) {
+			/*
+			 * Fired when he user hits the Search button. Calls the validator
+			 * and sends off an AJAX request if all is good.
+			 */             
+			new Ajax.Request('/django_jukebox/request_song/' + song_id +'/', {
+			    onSuccess: function(http_req) {
+			        // Get a JSON object from the response string (from the server).
+			        jsobj = http_req.responseText.evalJSON();
+			        // See if there was a form processing error.
+			        if (jsobj["is_error"] == false) {
+			        	load_song_queue()
+			        } else {
+			            // Form validation error happened.
+			            alert(jsobj["message"]);
+			        }
+			    },
+			    onComplete: function() {
+			}});
+		}
+		
 		function search_request() {
 			/*
 			 * Fired when he user hits the Search button. Calls the validator
@@ -41,6 +66,7 @@
 			        jsobj = http_req.responseText.evalJSON();
 			        // See if there was a form processing error.
 			        if (jsobj["is_error"] == false) {
+			        	load_song_search_results()
 			        } else {
 			            // Form validation error happened.
 			            alert(jsobj["message"]);
@@ -53,6 +79,7 @@
    		function on_load() { 
    			load_song_queue();
    			load_song_search();
+   			load_song_search_results()
 		}
 
 		window.onload=on_load();
@@ -71,6 +98,9 @@
 			<div class="yui-b">
 				<div id="song_search" class="yui-g">
 					{% include "song_search.html" %}
+				</div>
+				<div id="song_search_results" class="yui-g">
+					{% include "song_results.html" %}
 				</div>
 				<div id="upload_tool" class="yui-g">
 					{% include "song_upload.html" %}
