@@ -7,8 +7,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.forms import ModelForm
-from django_jukebox.apps.music_db.models import Song
-from django_jukebox.apps.music_player.models import SongRequest
+from apps.music_db.models import Song
+from apps.music_player.models import SongRequest
 
 def music_player_main(request):
     """
