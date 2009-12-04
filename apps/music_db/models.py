@@ -33,6 +33,10 @@ class Song(models.Model):
     added_by = models.ForeignKey(User, blank=True, null=True)
     # When the song was added to the library.
     time_added = models.DateTimeField(auto_now_add=True)
+    # The time the song was last played, requested or automatically.
+    time_last_played = models.DateTimeField(blank=True, null=True)
+    # Time the song was specifically requested to play.
+    time_last_requested = models.DateTimeField(blank=True, null=True)
     
     objects = SongManager()
 
