@@ -1,7 +1,7 @@
-body { font-family: sans-serif; }
+body { font-family: sans-serif; font-size: 10px; }
 
-h1 { font-weight: bold; }
-h2 { font-weight: bold; }
+h1 { font-size: 12px; font-weight: bold; display:inline; }
+h2 { font-size: 12px; font-weight: bold; color: #ffffff; }
 
 a { color: #AA3333; }
 a:link { text-decoration:none }
@@ -9,27 +9,70 @@ a:visited { text-decoration:none }
 a:hover { text-decoration:underline }
 a:active { text-decoration:underline }
 
-#hd h1 { font-size: 140%; display:inline; }
+#hd { background-color: #5a779c;
+		margin: 4px;
+		padding: 4px;
+		color: #ffffff;
+}
+#hd h1 { font-size: 24px;
+		display:inline;
+		vertical-align: text-bottom;
+		}
+
+#inline_submit { display:inline; }
+
+.instructions { font-size: 10px; font-style: italic; }
 
 /* MODULE STYLES */
-#song_queue { background-color: #DDDDFF; margin: 1px; 
-			 padding: 5px;}
-#song_queue li { font-size: 85% }
+#song_queue { background-color: #edebf8;
+				background-image:url('/media/img/bg_fade.jpg');
+				background-repeat:repeat-x;
+				margin: 4px; 
+				padding: 4px;
+				}
+#song_queue li { font-size: 10px;
+				 list-style-type: none;
+				}
 			 
-#song_search { background-color: #DDDDFF; margin: 1px; 
-			 padding: 5px;}
+#song_search { 	background-color: #edebf8;
+				background-image:url('/media/img/bg_fade.jpg');
+				background-repeat:repeat-x;
+				margin: 4px;
+			  	padding: 4px;
+			  }
 			 
-#song_search_results { background-color: #DDDDFF; margin: 1px; 
-			 padding: 5px;}
+#song_search_results { background-color: #edebf8;
+						background-image:url('/media/img/bg_fade.jpg');
+						background-repeat:repeat-x;
+						margin: 4px; 
+						padding: 4px;
+					}
+#song_search_results li { font-size: 10px; }
 
-#upload_tool { background-color: #DDDDFF; margin: 1px; 
-			 padding: 5px;}
+
+#upload_tool {  background-color: #edebf8;
+				background-image:url('/media/img/bg_fade.jpg');
+				background-repeat:repeat-x;
+				margin: 4px; 
+				padding: 4px;
+			  }
 					
-#ft { background-color: #DDDDDD; margin: 1px; padding: 2px;
-	  font-size: 75%; }
+#ft { background-color: #DDDDDD;
+		margin: 4px; 
+		padding: 4px;
+	  	font-size: 9px;
+	}
 
 /* SONG QUEUE STYLES */
-.recently_played_track { color: #AAAAAA;}
-.currently_playing_track { color: #44BB44; font-weight: bold; }
+.recently_played_track { color: #888888;}
+.currently_playing_track { color: #44BB44;
+							font-weight: bold; 
+							background-color: #ffffff;
+						}
+.currently_playing_track span { color: #666666;
+								font-weight: bold;
+}
+.now_playing { color: #456782;
+}
 .upcoming_requested_track { color: #222222; font-weight: bold; }
 .upcoming_random_track { color: #222222;}

@@ -17,6 +17,9 @@ MUSIC_DIR_NAME = 'music'
 # The path to the music directory that contains all of the music files.
 MUSIC_DIR = os.path.join(MEDIA_ROOT, MUSIC_DIR_NAME)
 
+# Name as it should be displayed in the application header/title/etc...
+PROGRAM_NAME = "RockBox"
+
 RANDOM_REQ_GOOD_RATED_SONGS = 8
 # Any song with a rating greater or equal to this value is considered 'good'.
 RANDOM_REQ_GOOD_RATING = 3

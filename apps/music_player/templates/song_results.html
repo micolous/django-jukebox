@@ -1,8 +1,13 @@
 <h2>SEARCH RESULTS</h2>
+<span class="instructions">
+	Click on the icon to the left of the song to add it to the queue.
+</span>
 <ul>
 	{% for song in qset %}
 		<li><a href='javascript:request_song({{song.id}})'><img src="{{MEDIA_URL}}img/icons/control_play.png" style="vertical-align: text-bottom" alt="Request Song" /></a>
-			{{song.artist}} - {{song.title}}
+			{{song.artist}} - 
+			{{song.title}} 
+			<!-- <img src="{{MEDIA_URL}}img/icons/cd.png" style="vertical-align: text-bottom" alt="Search on Album" /> -->
 		</li>
 	{% endfor %}
 </ul>

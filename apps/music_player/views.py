@@ -17,7 +17,7 @@ def music_player_main(request):
     Main view for the music player.
     """
     pagevars = {
-        "page_title": "Django JukeBox Beta",
+        "page_title": settings.PROGRAM_NAME,
     }
 
     context_instance = RequestContext(request)
@@ -29,8 +29,12 @@ def display_song_queue(request):
     Display the song queue. Previously played, currently playing, upcoming
     user requests, then upcoming random requests.
     """
-    currently_playing_track = SongRequest.objects.filter(time_played__isnull=False).order_by('-time_played')[0]
-    recently_played_tracks = SongRequest.objects.filter(time_played__isnull=False).exclude(id=currently_playing_track.id).order_by('-time_played')[:settings.NUMBER_OF_PREVIOUS_SONGS_DISPLAY]
+    try:
+        currently_playing_track = SongRequest.objects.filter(time_played__isnull=False).order_by('-time_played')[0]
+        recently_played_tracks = SongRequest.objects.filter(time_played__isnull=False).exclude(id=currently_playing_track.id).order_by('-time_played')[:settings.NUMBER_OF_PREVIOUS_SONGS_DISPLAY]
+    except IndexError:
+        currently_playing_track = None
+        recently_played_tracks = SongRequest.objects.filter(time_played__isnull=False).order_by('-time_played')[:settings.NUMBER_OF_PREVIOUS_SONGS_DISPLAY]
     
     """
     Determine total number of songs being displayed. Display as many songs as
@@ -92,12 +96,11 @@ def song_search_results(request, qset=Song.objects.all()):
                                Q(album__icontains=s_search) |
                                Q(genre__icontains=s_search))
     else:
-        qset.order_by('?')[:10]
+        qset = qset.order_by('?')[:10]
         
     pagevars = {
-            "page_title": "Song Search Results",
-            "qset": qset,
-            }
+        "qset": qset,
+    }
     
     context_instance = RequestContext(request)
     return render_to_response('song_results.html', pagevars, 
@@ -105,7 +108,7 @@ def song_search_results(request, qset=Song.objects.all()):
             
 def request_song(request, song_id):
     """
-    Request the song.
+    Create a new SongRequest object for the given song id.
     """
     song = Song.objects.get(id=song_id)
     request = SongRequest(song=song,

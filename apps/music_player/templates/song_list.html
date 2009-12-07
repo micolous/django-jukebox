@@ -1,9 +1,16 @@
 <h2>MUSIC QUEUE</h2>
+<br />
 <ul>
 	{% for request in recently_played_tracks reversed %}	
 		<li class="recently_played_track">{{request.song.artist}} - {{request.song.title}}</li>
 	{% endfor %}
-	<li class="currently_playing_track">{{currently_playing_track.song.artist}} - {{currently_playing_track.song.title}} (MM:SS)</li>
+	<li class="currently_playing_track">
+		<span class="now_playing">Now Playing...</span><br />
+		<span>Artist:</span> {{currently_playing_track.song.artist}}<br />
+		<span>Track:</span> {{currently_playing_track.song.title}}<br />
+		<span>Album:</span> {{currently_playing_track.song.album}}<br />
+		<span>Track Time:</span>(MM:SS)
+	</li>
 	{% for request in upcoming_requested_tracks %}	
 		<li class="upcoming_requested_track">{{request.song.artist}} - {{request.song.title}} [{{request.requester}}]</li>
 	{% endfor %}
