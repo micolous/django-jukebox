@@ -57,8 +57,7 @@
 			 * Fired when he user hits the Search button. Calls the validator
 			 * and sends off an AJAX request if all is good.
 			 */             
-			YAHOO.example.container.wait.show();
-			new Ajax.Request('{% url music_player-song_search %}', {
+			new Ajax.Updater('song_search_results', '{% url music_player-song_search_results %}', {
 			    method: 'POST',
 			    parameters: Form.serialize('song_form'),
 			    onSuccess: function(http_req) {
@@ -66,7 +65,7 @@
 			        jsobj = http_req.responseText.evalJSON();
 			        // See if there was a form processing error.
 			        if (jsobj["is_error"] == false) {
-			        	load_song_search_results()
+			        	
 			        } else {
 			            // Form validation error happened.
 			            alert(jsobj["message"]);

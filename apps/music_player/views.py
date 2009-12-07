@@ -68,34 +68,28 @@ def song_search(request):
     """
     Search form for songs. Find songs, request them... pretty basic.
     """
-    form = SongSearchForm(request, request.POST)
+    pagevars = {
+        "page_title": "Song Search",
+        "form": SongSearchForm(),
+    }
     
-    if request.POST and form.is_valid():
-        qset=Song.objects.all()
-        s_search = form.cleaned_data.get("keyword", None)
-        if s_search:
-            qset = qset.filter(artist__icontains=s_search)
-            
-        results = {
-            "qset": qset
-            }
-        
-        return HttpResponse(simplejson.dumps(results))
-
-    else:
-        pagevars = {
-            "page_title": "Song Search",
-            "form": SongSearchForm(),
-        }
-        
-        context_instance = RequestContext(request)
-        return render_to_response('song_search.html', pagevars, 
-                                  context_instance)
+    context_instance = RequestContext(request)
+    return render_to_response('song_search.html', pagevars, 
+                              context_instance)
         
 def song_search_results(request, qset=Song.objects.all()):
     """
     Query Song model based on search input.
     """
+    form = SongSearchForm(request.POST)
+    
+    if request.POST and form.is_valid():
+        s_search = form.cleaned_data.get("keyword", None)
+        if s_search:
+            qset = qset.filter(artist__icontains=s_search)
+    else:
+        qset.order_by('?')[:10]
+        
     pagevars = {
             "page_title": "Song Search Results",
             "qset": qset,
