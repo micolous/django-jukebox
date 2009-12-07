@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.forms import ModelForm
+from django.db.models import Q
 from apps.music_db.models import Song
 from apps.music_player.models import SongRequest
 from includes.json import JSMessage
@@ -86,7 +87,10 @@ def song_search_results(request, qset=Song.objects.all()):
     if request.POST and form.is_valid():
         s_search = form.cleaned_data.get("keyword", None)
         if s_search:
-            qset = qset.filter(artist__icontains=s_search)
+            qset = qset.filter(Q(artist__icontains=s_search) |
+                               Q(title__icontains=s_search) |
+                               Q(album__icontains=s_search) |
+                               Q(genre__icontains=s_search))
     else:
         qset.order_by('?')[:10]
         
