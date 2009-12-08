@@ -18,7 +18,8 @@ class SongManager(models.Manager):
         Finds all songs that are 'good'.
         """
         # Has minimum good rating and has enough ratings not to be upcoming.
-        return self.filter(rating__gte=settings.RANDOM_REQ_GOOD_RATING,
+        return self.filter(allow_random_play=True,
+                           rating__gte=settings.RANDOM_REQ_GOOD_RATING,
                            num_ratings__gt=settings.RANDOM_REQ_UPCOMING_MAX_RATINGS)
     
     def get_upcoming_songs(self):
@@ -27,5 +28,6 @@ class SongManager(models.Manager):
         either have no ratings, or only a few, as per capped by
         settings.RANDOM_REQ_UPCOMING_MAX_RATINGS.
         """
-        return self.filter(Q(rating__isnull=True) | 
-                Q(num_ratings__lte=settings.RANDOM_REQ_UPCOMING_MAX_RATINGS))
+        return self.filter(Q(allow_random_play=True),
+                           Q(rating__isnull=True) | 
+                           Q(num_ratings__lte=settings.RANDOM_REQ_UPCOMING_MAX_RATINGS))
