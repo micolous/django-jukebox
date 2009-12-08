@@ -5,12 +5,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    (r'^django_jukebox/', include('apps.music_player.urls')),
-
+    (r'^jtui/', include('apps.juketunes_ui.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     (r'^admin/', include(admin.site.urls)),
+    (r'^', include('apps.music_player.urls')),
 )
 
 # Serve Media via Django if we're running a development site. This is primarily
@@ -18,5 +16,6 @@ urlpatterns = patterns('',
 # environment.
 if settings.DJANGO_SERVE_MEDIA:
     urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', 
+            {'document_root': settings.MEDIA_ROOT}),
     )
