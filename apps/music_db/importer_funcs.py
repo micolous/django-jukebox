@@ -33,11 +33,6 @@ def scan_music_dir_for_new_songs():
             except IOError:
                 # Ignore.
                 continue
-            except mutagen.id3.ID3NoHeaderError:
-                # Malformed ID3, ignore for now.
-                # TODO: Maybe handle this more intelligently.
-                print "ERROR: Mal-formed ID3 tag:", file_path
-                continue
             
             db_file_path = os.path.join(settings.MUSIC_DIR_NAME, file_name)
             # See if a song already exists with this name in the DB.
