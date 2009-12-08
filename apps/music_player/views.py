@@ -111,7 +111,12 @@ def request_song(request, song_id):
     Create a new SongRequest object for the given song id.
     """
     song = Song.objects.get(id=song_id)
-    request = SongRequest(song=song,
-                          requester=request.user)
-    request.save()
-    return HttpResponse(JSMessage("Song Requested."))
+    if SongRequest.objects.get_active_requests().filter(song=song):
+        # Don't allow requesting a song that is currently in the queue.
+        return HttpResponse(JSMessage("Song has already been requested.", 
+                                      is_error=True))
+    else:
+        # Song isn't already in the SongRequest queue, add it.
+        request = SongRequest(song=song, requester=request.user)
+        request.save()
+        return HttpResponse(JSMessage("Song Requested."))
