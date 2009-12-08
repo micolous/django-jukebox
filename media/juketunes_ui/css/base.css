@@ -1,0 +1,32 @@
+body {
+	margin:auto;
+}
+#header {
+	width:100%;
+	height:60px;
+	background-image:url('/media/juketunes_ui/img/itunes_gray_gradient.png');
+	display:block;
+	clear:both;
+	padding-top:1px;
+}
+#current_song_div {
+	background-image:url('/media/juketunes_ui/img/itunes_nplay_bg.png');
+	width:300px;
+	height:42px;
+	margin-left:50px;
+	margin-top:10px;
+	float:left;
+}
+#current_song_text_div {
+	width:284px;
+	text-align:center;
+	font-size:11px;
+	font-weight:bold;
+	padding-top:13px;
+	font-family:"Lucida Grande", arial, sans-serif;
+}
+#star {
+	float:left;
+	margin-top:22px;
+	margin-left:10px;
+}

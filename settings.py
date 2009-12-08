@@ -98,6 +98,8 @@ USE_I18N = False
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
+YUI_URL = 'http://yui.yahooapis.com/2.7.0/'
+
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
@@ -118,6 +120,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
+    'includes.extra_context.common_urls',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -149,6 +152,7 @@ INSTALLED_APPS = (
     'apps.music_player',
     'apps.music_uploader',
     'apps.juke_daemon',
+    'apps.juketunes_ui',
 )
 
 """
