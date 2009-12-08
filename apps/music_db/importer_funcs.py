@@ -26,6 +26,7 @@ def scan_music_dir_for_new_songs():
     """
     for root, dirs, files in os.walk(settings.MUSIC_DIR):
         for file_name in files:           
+            file_name = unicode(file_name, "utf-8")
             try:
                 file_path = os.path.join(settings.MUSIC_DIR, file_name)
                 # If this throws an exception, we might end up ignoring
@@ -39,8 +40,13 @@ def scan_music_dir_for_new_songs():
                 pass
             
             db_file_path = os.path.join(settings.MUSIC_DIR_NAME, file_name)
-            # See if a song already exists with this name in the DB.
-            num_matches = Song.objects.filter(file=db_file_path).count()
+            try:
+                # See if a song already exists with this name in the DB.
+                num_matches = Song.objects.filter(file=db_file_path).count()
+            except UnicodeDecodeError:
+                # This -shouldn't- happen anymore, but don't die if it does.
+                print "Unicode Error:", file_name
+                continue
             
             if num_matches == 0:
                 add_song_to_library(file_name)
