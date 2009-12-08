@@ -46,16 +46,18 @@ class Song(models.Model):
     def __unicode__(self):
         return "%s - %s" % (self.artist, self.title)
     
-    def populate_from_id3_tags(self, file_path=None):
+    def populate_from_id3_tags(self, file_path, file_name):
         """    
         Read ID3 tags of the mp3 file.
         
-        file: (string) Path to a file to load from instead of the default
-                       one for this object.
+        file_path: (str) Path to a file to load ID3 tags from. This is
+                         generally supplied by song_pre_save().
+        file_name: (str) When uploading files from a browser, a temporary
+                         file is used through much of the process. This is
+                         passed so that the file name may be used when invalid
+                         or no tags are found, instead of the scrambled file
+                         name that the temporary upload file uses.
         """
-        if not file_path:
-            # Assume the object's file field unless otherwise specified.
-            file_path = self.file
         try:
             tag = ID3(file_path)
             #print tag
@@ -64,7 +66,8 @@ class Song(models.Model):
             try:
                 self.title = str(tag['TIT2'])
             except KeyError:
-                pass
+                # No tag for title found, use file name.
+                self.title = file_name
             
             try:
                 self.artist = str(tag['TPE1'])
@@ -89,7 +92,8 @@ class Song(models.Model):
                 pass
             
         except mutagen.id3.ID3NoHeaderError:
-            print 'Warning: NoID3Header'
+            # Invalid ID3 headers. Just use the file name as the title.
+            self.title = file_name
         
 def song_pre_save(sender, instance, *args, **kwargs):
     """
@@ -99,6 +103,8 @@ def song_pre_save(sender, instance, *args, **kwargs):
     # If the Item has a Null or False value for its 'id' field, it's a new
     # item. Give it a new num_in_job.
     if not instance.id:
+        # The file name is used when there are no ID3 tags indicating title.
+        file_name = os.path.basename(instance.file.file.name)
         if hasattr(instance.file.file, 'temporary_file_path'):
             # This is probably being uploaded from a form. Use TempUploadFile
             # to figure out where the file is -currently- (before being saved).
@@ -108,7 +114,7 @@ def song_pre_save(sender, instance, *args, **kwargs):
             # in the music directory.
             file_path = instance.file.path
         # New Song, scan ID3 tags for file.
-        instance.populate_from_id3_tags(file_path=file_path)
+        instance.populate_from_id3_tags(file_path, file_name)
 signals.pre_save.connect(song_pre_save, sender=Song)
 
 def song_pre_delete(sender, instance, *args, **kwargs):

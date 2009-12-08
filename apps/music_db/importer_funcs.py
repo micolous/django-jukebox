@@ -28,11 +28,15 @@ def scan_music_dir_for_new_songs():
         for file_name in files:           
             try:
                 file_path = os.path.join(settings.MUSIC_DIR, file_name)
-                # If this throws an exception, we'll ignore the file.
+                # If this throws an exception, we might end up ignoring
+                # the file.
                 ID3(file_path)
             except IOError:
-                # Ignore.
+                # This is probably not a music file. Skip it.
                 continue
+            except mutagen.id3.ID3NoHeaderError:
+                # Let the Song model's ID3 tag scanning method handle this one.
+                pass
             
             db_file_path = os.path.join(settings.MUSIC_DIR_NAME, file_name)
             # See if a song already exists with this name in the DB.
