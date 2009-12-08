@@ -41,7 +41,7 @@ class Song(models.Model):
     objects = SongManager()
 
     class Meta:
-        ordering = ['artist', 'disc_number', 'track_number', 'title']
+        ordering = ['artist', 'album', 'disc_number', 'track_number', 'title']
     
     def __unicode__(self):
         return "%s - %s" % (self.artist, self.title)
