@@ -27,7 +27,7 @@ class SongRequest(models.Model):
     objects = SongRequestManager()
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['id']
     
     def __unicode__(self):
         return "%s requests %s - %s" % (self.requester, self.song.artist, 

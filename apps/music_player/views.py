@@ -43,11 +43,10 @@ def display_song_queue(request):
     until that number is reached.
     """
     total_displayed_songs = settings.LIMIT_UPCOMING_SONGS_DISPLAY
-    upcoming_requested_tracks = SongRequest.objects.filter(time_played__isnull=True).exclude(requester=None).order_by('time_requested')    
+    upcoming_requested_tracks = SongRequest.objects.get_pending_user_requests()    
     if upcoming_requested_tracks.count() < total_displayed_songs:
         random_song_display_limit = total_displayed_songs - upcoming_requested_tracks.count()
-        upcoming_random_tracks = SongRequest.objects.filter(time_played__isnull=True, 
-                                                            requester=None).order_by('time_requested')[:random_song_display_limit]
+        upcoming_random_tracks = SongRequest.objects.get_pending_anonymous_requests()[:random_song_display_limit]
     else:
         upcoming_random_tracks = None
 

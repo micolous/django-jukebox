@@ -11,12 +11,6 @@ class SongRequestManager(models.Manager):
         """
         return self.filter(time_played__isnull=True)
     
-    def get_next_request_to_play(self):
-        """
-        Returns the next request to play.
-        """
-        return self.get_active_requests().order_by('id')
-    
     def get_pending_user_requests(self):
         """
         Returns all pending requests that were sent by an authenticated User.
