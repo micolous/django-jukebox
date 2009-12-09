@@ -51,6 +51,12 @@
 			    onComplete: function() {
 			}});
 		}
+
+		function periodically_update_queue() {
+			new Ajax.PeriodicalUpdater('song_queue', '{% url music_player-display_song_queue_div %}', {
+				  method: 'get', frequency: 8, decay: 1
+				});		
+		}
 		
 		function search_request() {
 			/*
@@ -79,6 +85,7 @@
    			load_song_queue();
    			load_song_search();
    			load_song_search_results()
+   			periodically_update_queue()
 		}
 
 		window.onload=on_load();
