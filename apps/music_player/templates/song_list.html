@@ -9,7 +9,6 @@
 		<span>Artist:</span> {{currently_playing_track.song.artist}}<br />
 		<span>Track:</span> {{currently_playing_track.song.title}}<br />
 		<span>Album:</span> {{currently_playing_track.song.album}}<br />
-		<span>Track Time:</span>(MM:SS)
 	</li>
 	{% for request in upcoming_requested_tracks %}	
 		<li class="upcoming_requested_track">{{request.song.artist}} - {{request.song.title}} [{{request.requester}}]</li>

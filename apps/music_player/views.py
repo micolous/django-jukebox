@@ -81,6 +81,27 @@ def song_search(request):
     context_instance = RequestContext(request)
     return render_to_response('song_search.html', pagevars, 
                               context_instance)
+    
+class SongUploadForm(ModelForm):
+    """
+    File Upload form.
+    """
+    class Meta:
+        model = Song
+        fields = ('file')
+        
+def song_upload(request):
+    """
+    Upload form for songs.
+    """    
+    pagevars = {
+        "page_title": "Song Upload",
+        "form": SongUploadForm(),
+    }
+    
+    context_instance = RequestContext(request)
+    return render_to_response('song_upload.html', pagevars, 
+                              context_instance)
         
 def song_search_results(request, qset=Song.objects.all()):
     """
