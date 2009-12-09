@@ -115,7 +115,7 @@ def song_search_results(request, qset=Song.objects.all()):
             qset = qset.filter(Q(artist__icontains=s_search) |
                                Q(title__icontains=s_search) |
                                Q(album__icontains=s_search) |
-                               Q(genre__icontains=s_search))
+                               Q(genre__icontains=s_search)).order_by('artist', 'title')
     else:
         qset = qset.order_by('?')[:10]
         

@@ -11,9 +11,9 @@
 		<span>Album:</span> {{currently_playing_track.song.album}}<br />
 	</li>
 	{% for request in upcoming_requested_tracks %}	
-		<li class="upcoming_requested_track">{{request.song.artist}} - {{request.song.title}} [{{request.requester}}]</li>
+		<li class="upcoming_requested_track">{{request.song}} [{{request.requester}}]</li>
 	{% endfor %}
 	{% for request in upcoming_random_tracks %}	
-		<li class="upcoming_random_track">{{request.song.artist}} - {{request.song.title}}</li>
+		<li class="upcoming_random_track">{{request.song}}</li>
 	{% endfor %}
 </ul>
