@@ -5,7 +5,7 @@
 		<li class="recently_played_track">{{request.song.artist}} - {{request.song.title}}</li>
 	{% endfor %}
 	<li class="currently_playing_track">
-		<span class="now_playing">Now Playing...</span><br />
+		<span style="font-style:italic;">Now Playing...</span><br />
 		<span>Artist:</span> {{currently_playing_track.song.artist}}<br />
 		<span>Track:</span> {{currently_playing_track.song.title}}<br />
 		<span>Album:</span> {{currently_playing_track.song.album}}<br />

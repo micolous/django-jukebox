@@ -1,5 +1,6 @@
-	<h2>SEARCH</h2>
-	
+	{% load humanize %}
+	<h2 class="inline">SEARCH</h2>
+	<span class="white_text">({{total_songs|intcomma}} songs)</span>
 	<form id="song_form" name="song_form" onsubmit="search_request();return false;">
 		{{form.keyword}}<input id="id_submit" style="display:inline;" class="submit" type="submit" value="Find Songs" />
 	</form> 

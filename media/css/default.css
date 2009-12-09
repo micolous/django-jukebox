@@ -19,6 +19,8 @@ a:active { text-decoration:underline }
 		vertical-align: text-bottom;
 		}
 
+.inline { display:inline; }
+.white_text { color: #ffffff; }
 #inline_submit { display:inline; }
 
 .instructions { font-size: 10px; font-style: italic; }

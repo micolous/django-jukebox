@@ -72,9 +72,11 @@ def song_search(request):
     """
     Search form for songs. Find songs, request them... pretty basic.
     """
+    total_songs = Song.objects.all().count()
     pagevars = {
         "page_title": "Song Search",
         "form": SongSearchForm(),
+        "total_songs": total_songs,
     }
     
     context_instance = RequestContext(request)
