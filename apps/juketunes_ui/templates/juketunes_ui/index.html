@@ -1,7 +1,25 @@
 {% extends "standard.html" %}
 
 {% block extra_head %}
-   <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
+<link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
+<script type="text/javascript" src="{{YUI_URL}}build/yuiloader/yuiloader-min.js"></script>
+<script type="text/javascript">
+    var loader = new YAHOO.util.YUILoader({
+        base: "{{YUI_URL}}build/",
+        combine: false,
+        loadOptional: true,
+        require: ["container", "menu", "datatable", "datasource", "paginator",
+                  "json", "connection", "dragdrop", "button"],
+        onSuccess: function() {
+          setup_menu();
+          var CF;
+          setup_datatable("{% url item_catalog-search %}");
+          setup_search_dialog();
+          setup_toolbar();
+        }
+    });
+    loader.insert();
+</script>
 {% endblock %}
 
 {% block body %}
