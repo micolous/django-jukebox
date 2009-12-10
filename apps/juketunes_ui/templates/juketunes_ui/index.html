@@ -3,6 +3,8 @@
 {% block extra_head %}
 <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
 <script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/artist_dtable.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/album_dtable.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/song_dtable.js"></script>
 <script type="text/javascript" src="{{YUI_URL}}build/yuiloader/yuiloader-min.js"></script>
 <script type="text/javascript">
     var loader = new YAHOO.util.YUILoader({
@@ -13,7 +15,11 @@
                   "json", "connection"],
         onSuccess: function() {
           var ArtistTable;
+          var AlbumTable;
+          var SongTable;
           setup_artist_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
+          setup_album_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
+          setup_song_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
         }
     });
     loader.insert();
@@ -31,7 +37,9 @@
  </div>
 
  <div id="dtables_div">
-   <div id="artist_dtable" class="yui-skin-sam">
+   <div id="artist_dtable"></div>
+   <div id="album_dtable"></div>
+   <div id="song_dtable"></div>
  </div>
 
  <div id="footer">

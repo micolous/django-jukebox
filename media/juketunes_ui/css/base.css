@@ -31,6 +31,8 @@ body {
 #dtables_div {
 	height:85%;
 }
-#artist_dtable {
+#artist_dtable, #album_dtable, #song_dtable {
 	height:94%;
+	width:33%;
+	float:left;
 }

@@ -1,4 +1,4 @@
-function setup_artist_datatable(datasource_url) {
+function setup_song_datatable(datasource_url) {
 	var Dom = YAHOO.util.Dom,
 	Event = YAHOO.util.Event,
 	XHRDataSource = YAHOO.util.XHRDataSource,
@@ -6,9 +6,9 @@ function setup_artist_datatable(datasource_url) {
 	Paginator = YAHOO.widget.Paginator;
 
 	/**
-	 * ArtistTable creates a paginated DataTable.
+	 * SongTable creates a paginated DataTable.
 	 */
-	ArtistTable = {
+	SongTable = {
 		/**
 		 * Initialize all the DataTable.
 		 */
@@ -19,7 +19,7 @@ function setup_artist_datatable(datasource_url) {
 				myPaginator;
 	
 			// Define the DataTable's columns
-			myColumnDefs = [{key:"artist", label:"Artist", sortable:false,
+			myColumnDefs = [{key:"artist", label:"Song", sortable:false,
 				width:"25%"}];
 		
 			// Create a new DataSource
@@ -50,7 +50,7 @@ function setup_artist_datatable(datasource_url) {
 		    };
 	
 			// Create the DataTable.
-			myDataTable = new DataTable("artist_dtable", myColumnDefs, myDataSource, myConfigs);
+			myDataTable = new DataTable("song_dtable", myColumnDefs, myDataSource, myConfigs);
 	        // Enable row highlighting
 			myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
 			myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
@@ -65,11 +65,11 @@ function setup_artist_datatable(datasource_url) {
 			}
 	
 			// Store the DataTable and DataSource for use elsewhere in this script.
-			ArtistTable.myDataSource = myDataSource;
-			ArtistTable.myDataTable = myDataTable;
+			SongTable.myDataSource = myDataSource;
+			SongTable.myDataTable = myDataTable;
 	
 	        // Initial load
-			ArtistTable.fireDT(false);
+			SongTable.fireDT(false);
 		},
 	
 		/**
@@ -97,7 +97,7 @@ function setup_artist_datatable(datasource_url) {
 		 * @param {Boolean} resetRecordOffset
 		 */
 		fireDT: function (resetRecordOffset) {
-	        var oState = ArtistTable.myDataTable.getState(),
+	        var oState = SongTable.myDataTable.getState(),
 	        	request,
 	        	oCallback;
 	
@@ -119,20 +119,20 @@ function setup_artist_datatable(datasource_url) {
 			will clear out the old data in the DataTable, making way for
 			the new data.*/
 			oCallback = {
-			    success : ArtistTable.myDataTable.onDataReturnSetRows,
-			    failure : ArtistTable.myDataTable.onDataReturnSetRows,
+			    success : SongTable.myDataTable.onDataReturnSetRows,
+			    failure : SongTable.myDataTable.onDataReturnSetRows,
 	            argument : oState,
-			    scope : ArtistTable.myDataTable
+			    scope : SongTable.myDataTable
 			};
 	
 			// Generate a query string
-	        request = ArtistTable.myDataTable.get("generateRequest")(oState, ArtistTable.myDataTable);
+	        request = SongTable.myDataTable.get("generateRequest")(oState, SongTable.myDataTable);
 	
 			// Fire off a request for new data.
-			ArtistTable.myDataSource.sendRequest(request, oCallback);
+			SongTable.myDataSource.sendRequest(request, oCallback);
 		}
 	};
 	
-	ArtistTable.init();
-	return ArtistTable;
+	SongTable.init();
+	return SongTable;
 }
