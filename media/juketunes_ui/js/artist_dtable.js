@@ -1,4 +1,4 @@
-function setup_datatable(datasource_url) {
+function setup_artist_datatable(datasource_url) {
 	var Dom = YAHOO.util.Dom,
 	Event = YAHOO.util.Event,
 	XHRDataSource = YAHOO.util.XHRDataSource,
@@ -6,9 +6,9 @@ function setup_datatable(datasource_url) {
 	Paginator = YAHOO.widget.Paginator;
 
 	/**
-	 * CF creates a paginated DataTable.
+	 * ArtistTable creates a paginated DataTable.
 	 */
-	CF = {
+	ArtistTable = {
 		/**
 		 * Initialize all the DataTable.
 		 */
@@ -64,11 +64,11 @@ function setup_datatable(datasource_url) {
 			}
 	
 			// Store the DataTable and DataSource for use elsewhere in this script.
-			CF.myDataSource = myDataSource;
-			CF.myDataTable = myDataTable;
+			ArtistTable.myDataSource = myDataSource;
+			ArtistTable.myDataTable = myDataTable;
 	
 	        // Initial load
-			CF.fireDT(false);
+			ArtistTable.fireDT(false);
 		},
 	
 		/**
@@ -115,7 +115,7 @@ function setup_datatable(datasource_url) {
 		 * @param {Boolean} resetRecordOffset
 		 */
 		fireDT: function (resetRecordOffset) {
-	        var oState = CF.myDataTable.getState(),
+	        var oState = ArtistTable.myDataTable.getState(),
 	        	request,
 	        	oCallback;
 	
@@ -137,20 +137,20 @@ function setup_datatable(datasource_url) {
 			will clear out the old data in the DataTable, making way for
 			the new data.*/
 			oCallback = {
-			    success : CF.myDataTable.onDataReturnSetRows,
-			    failure : CF.myDataTable.onDataReturnSetRows,
+			    success : ArtistTable.myDataTable.onDataReturnSetRows,
+			    failure : ArtistTable.myDataTable.onDataReturnSetRows,
 	            argument : oState,
-			    scope : CF.myDataTable
+			    scope : ArtistTable.myDataTable
 			};
 	
 			// Generate a query string
-	        request = CF.myDataTable.get("generateRequest")(oState, CF.myDataTable);
+	        request = ArtistTable.myDataTable.get("generateRequest")(oState, ArtistTable.myDataTable);
 	
 			// Fire off a request for new data.
-			CF.myDataSource.sendRequest(request, oCallback);
+			ArtistTable.myDataSource.sendRequest(request, oCallback);
 		}
 	};
 	
-	CF.init();
-	return CF;
+	ArtistTable.init();
+	return ArtistTable;
 }

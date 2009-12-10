@@ -2,18 +2,18 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
-<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/music_browser.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/artist_dtable.js"></script>
 <script type="text/javascript" src="{{YUI_URL}}build/yuiloader/yuiloader-min.js"></script>
 <script type="text/javascript">
     var loader = new YAHOO.util.YUILoader({
         base: "{{YUI_URL}}build/",
         combine: false,
-        loadOptional: true,
-        require: ["container", "menu", "datatable", "datasource", "paginator",
-                  "json", "connection", "dragdrop", "button"],
+        loadOptional: false,
+        require: ["container", "datatable", "datasource", "paginator",
+                  "json", "connection"],
         onSuccess: function() {
-          var CF;
-          setup_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
+          var ArtistTable;
+          setup_artist_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
         }
     });
     loader.insert();
