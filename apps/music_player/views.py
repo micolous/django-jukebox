@@ -132,6 +132,19 @@ def request_song(request, song_id):
     """
     Create a new SongRequest object for the given song id.
     """
+    request_user = request.user
+    if not request.user.is_authenticated():
+        # Set this to None to avoid storing an AnonymousUser in the
+        # SongRequest (this would raise an exception).
+        request_user = None
+        # You can allow anonymous user requests in settings.py.
+        if not settings.ALLOW_ANON_REQUESTS:
+            # Anonymous user requests not allowed, error out.
+            message = JSMessage("You must be logged in to request songs.", 
+                                is_error=True)
+            return HttpResponse(message)
+
+    # Look the song up and create a request.
     song = Song.objects.get(id=song_id)
     if SongRequest.objects.get_active_requests().filter(song=song):
         # Don't allow requesting a song that is currently in the queue.
@@ -139,6 +152,6 @@ def request_song(request, song_id):
                                       is_error=True))
     else:
         # Song isn't already in the SongRequest queue, add it.
-        request = SongRequest(song=song, requester=request.user)
+        request = SongRequest(song=song, requester=request_user)
         request.save()
         return HttpResponse(JSMessage("Song Requested."))

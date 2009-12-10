@@ -53,7 +53,8 @@
 		}
 
 		function periodically_update_queue() {
-			new Ajax.PeriodicalUpdater('song_queue', '{% url music_player-display_song_queue_div %}', {
+			new Ajax.PeriodicalUpdater('song_queue', 
+					'{% url music_player-display_song_queue_div %}', {
 				  method: 'get', frequency: 8, decay: 1
 				});		
 		}
@@ -63,7 +64,8 @@
 			 * Fired when he user hits the Search button. Calls the validator
 			 * and sends off an AJAX request if all is good.
 			 */             
-			new Ajax.Updater('song_search_results', '{% url music_player-ajax-song_search_results %}', {
+			new Ajax.Updater('song_search_results', 
+					'{% url music_player-ajax-song_search_results %}', {
 			    method: 'POST',
 			    parameters: Form.serialize('song_form'),
 			    onSuccess: function(http_req) {
@@ -97,7 +99,8 @@
 
 <div id="doc" class="yui-t3">
 	<div id="hd" role="banner">
-		<img src="{{MEDIA_URL}}img/jukebox.png" height="44px" width="32px" /> <h1>{{page_title}}</h1>
+		<img src="{{MEDIA_URL}}img/jukebox.png" height="44px" width="32px" /> 
+		<h1>{{page_title}}</h1>
 	</div>
   	<div id="bd" role="main">
 		<div id="yui-main">
