@@ -98,7 +98,11 @@ USE_I18N = False
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
-YUI_URL = 'http://yui.yahooapis.com/2.7.0/'
+# URL to a YUI installation.
+YUI_URL = 'http://yui.yahooapis.com/2.8.0r4/'
+
+# Where to redirect to after logging in.
+LOGIN_REDIRECT_URL = '/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -148,6 +152,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     'django_extensions',
+    'apps.accounts',
     'apps.music_db',
     'apps.music_player',
     'apps.music_uploader',

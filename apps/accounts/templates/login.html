@@ -1,0 +1,18 @@
+{% extends "standard.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+  <h1>Login</h1>
+  <p>
+    In order to gain access to all of the features the site has to offer, you
+    must login.<br /><br />
+  </p>
+
+  <div style="width:200px;text-align:center;margin:0 auto">
+  <form method="POST" action="/accounts/login/">        
+    {{form}}
+    <input class="button" type="submit" value="Login" />
+  </form>  
+  </div>
+{% endblock %} 

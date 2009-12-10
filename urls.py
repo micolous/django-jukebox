@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     (r'^jtui/', include('apps.juketunes_ui.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
+    (r'^accounts/', include('apps.accounts.urls')),
     (r'^', include('apps.music_player.urls')),
 )
 

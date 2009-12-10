@@ -118,7 +118,19 @@
 		</div>
 	</div>
   	<div id="ft" role="contentinfo">
-  		<p>Powered by <a href="http://code.google.com/p/django-jukebox/">Django JukeBox.</a></p>
+  		<p style='float:left;width:25%'>
+  		  Powered by 
+  		  <a href="http://code.google.com/p/django-jukebox/">Django JukeBox.</a>
+  		</p>
+  		<p style='float:left;width:75%;text-align:right'>
+  		{% if request.user.is_authenticated %}
+  		  Logged in as {{request.user}}.&nbsp;&nbsp;&nbsp; 
+  		  <a href="{% url logout %}">[Logout]</a>
+  		{% else %}
+  		  Not logged in.&nbsp;&nbsp;&nbsp;
+  		  <a href="{% url login %}">[Login]</a>
+  		{% endif %}
+  		</p>
   	</div>
 </div>
 
