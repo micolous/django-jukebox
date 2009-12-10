@@ -2,6 +2,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
+<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/music_browser.js"></script>
 <script type="text/javascript" src="{{YUI_URL}}build/yuiloader/yuiloader-min.js"></script>
 <script type="text/javascript">
     var loader = new YAHOO.util.YUILoader({
@@ -11,11 +12,8 @@
         require: ["container", "menu", "datatable", "datasource", "paginator",
                   "json", "connection", "dragdrop", "button"],
         onSuccess: function() {
-          setup_menu();
           var CF;
-          setup_datatable("{% url item_catalog-search %}");
-          setup_search_dialog();
-          setup_toolbar();
+          setup_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
         }
     });
     loader.insert();
@@ -30,10 +28,10 @@
    </div>
   </div>
   
-  </div>
+ </div>
 
- <div id="body">
-  
+ <div id="dtables_div">
+   <div id="artist_dtable" class="yui-skin-sam">
  </div>
 
  <div id="footer">

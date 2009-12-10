@@ -9,7 +9,7 @@ def ajax_get_artist_list(request):
     """
     Processes the AJAX request to search the catalog. Returns JSON results.
     """  
-    artist_qset = Song.objects.values_list('artist', flat=True).distinct().order_by('artist')
+    artist_qset = Song.objects.values('artist').distinct().order_by('artist')
     artist_count = artist_qset.count()
     artist_list = list(artist_qset)
     

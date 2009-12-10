@@ -1,5 +1,9 @@
+html {
+	height:100%;
+}
 body {
 	margin:auto;
+	height:100%;
 }
 #header {
 	width:100%;
@@ -13,9 +17,8 @@ body {
 	background-image:url('/media/juketunes_ui/img/itunes_nplay_bg.png');
 	width:300px;
 	height:42px;
-	margin-left:50px;
+	margin:0 auto;
 	margin-top:10px;
-	float:left;
 }
 #current_song_text_div {
 	width:284px;
@@ -25,8 +28,9 @@ body {
 	padding-top:13px;
 	font-family:"Lucida Grande", arial, sans-serif;
 }
-#star {
-	float:left;
-	margin-top:22px;
-	margin-left:10px;
+#dtables_div {
+	height:85%;
+}
+#artist_dtable {
+	height:94%;
 }
