@@ -1,29 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-   <title>{% block page_title %}YUI Base Page{% endblock %}</title>
-   <link rel="stylesheet" href="{{YUI_URL}}build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
-   <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
-   <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/star_ratings.css" type="text/css" />
-   <script type="text/javascript" src="{{MEDIA_URL}}js/prototype.js"></script>
-   <script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/star_ratings.js"></script>
-</head>
-<body>
-<div id="body_wrapper">
+{% extends "standard.html" %}
 
+{% block extra_head %}
+   <link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
+{% endblock %}
+
+{% block body %}
  <div id="header">
   <div id="current_song_div">
    <div id="current_song_text_div">
      Some Artist - Blah
    </div>
   </div>
-  <div id="star">
-   <ul id="star0" class="star" onmousedown="star.update(event,this,'/submit_rating/')" onmousemove="star.mouse(event,this)" title="Rate This!">
-    <li id="starCur0" class="curr" title="100" style="width: 85px;"></li>
-   </ul>
-   <div style="color: rgb(136, 136, 136);" id="starUser0" class="user">100%</div>
+  
   </div>
- </div>
 
  <div id="body">
   
@@ -31,7 +20,4 @@
 
  <div id="footer">
  </div>
-
-</div>
-</body>
-</html>
+{% endblock %}
