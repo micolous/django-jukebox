@@ -91,6 +91,12 @@ class Song(models.Model):
             except KeyError:
                 pass
             
+            # Disc sets are treated much the same way.
+            try:
+                self.disc_number = str(tag['TPOS']).split('/')[0]
+            except KeyError:
+                pass
+            
         except mutagen.id3.ID3NoHeaderError:
             # Invalid ID3 headers. Just use the file name as the title.
             self.title = file_name
