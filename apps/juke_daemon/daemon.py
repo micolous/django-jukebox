@@ -9,7 +9,7 @@ from subprocess import call
 from django.conf import settings
 from apps.music_player.models import SongRequest
 
-def play_song(request):
+def play_song(request, requested_by_user=False):
     """
     Plays the song associated with a SongRequest object.
     
@@ -17,6 +17,18 @@ def play_song(request):
     """
     request.time_played = datetime.datetime.now()
     request.save()
+    
+    # Track the play on the Song object.
+    song = request.song
+    # This is set regardless of whether an authenticated User requested
+    # the Song.
+    song.time_last_played = datetime.datetime.now()
+    if requested_by_user:
+        song.time_last_requested = datetime.datetime.now()
+        # Only incremented by authenticated requests.
+        song.request_count += 1
+    request.song.save()
+    
     print "Playing: %s" % request
     cmd_list = settings.CLI_PLAYER_COMMAND_STR + [request.song.file.path]
     call(cmd_list)
@@ -32,7 +44,7 @@ def daemon_loop():
         auth_requests = SongRequest.objects.get_pending_user_requests()
         if auth_requests:
             # Play the first authenticated User's request.
-            play_song(auth_requests[0])
+            play_song(auth_requests[0], requested_by_user=True)
         else:
             # No User requests found, check one of the anonymous requests.
             # These are usually from the random_requester.py module.
