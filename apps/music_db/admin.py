@@ -11,5 +11,5 @@ class SongAdmin(admin.ModelAdmin):
     list_editable = ('artist', 'album', 'title', 'disc_number', 
                     'track_number', 'genre', 'allow_random_play')
     date_hierarchy = 'time_added'
-    search_fields = ['title', 'artist', 'genre']
+    search_fields = ['title', 'artist', 'album', 'genre']
 admin.site.register(Song, SongAdmin)
