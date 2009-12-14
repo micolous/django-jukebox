@@ -1,6 +1,7 @@
 import os
 import mutagen
 from mutagen.id3 import ID3
+from mutagen.easymp4 import EasyMP4
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -100,7 +101,42 @@ class Song(models.Model):
         except mutagen.id3.ID3NoHeaderError:
             # Invalid ID3 headers. Just use the file name as the title.
             self.title = file_name
-        
+
+    def populate_from_mp4_tags(self, file_path, file_name):
+        """
+        Populate record from m4a/mp4 data.
+        """
+        try:
+            tag = EasyMP4(file_path)
+            #print tag
+            # Map MP4 tags to columns in the Song table.
+            try:
+                self.title = tag['title'][0]
+            except KeyError:
+                # No tag for title found, use file name.
+                self.title = file_name
+            
+            try:
+                self.artist = tag['artist'][0]
+            except KeyError:
+                pass
+            
+            try:
+                self.album = tag['album'][0]
+            except KeyError:
+                pass
+            
+            try:
+                self.genre = tag['genre'][0]
+            except KeyError:
+                pass
+            
+            #TODO: Handle track number and disc number from mp4 tags.
+            
+        except:
+            # Invalid headers. Just use the file name as the title.
+            self.title = file_name
+       
 def song_pre_save(sender, instance, *args, **kwargs):
     """
     Things to happen in the point of saving an song before the actual save()
@@ -119,8 +155,13 @@ def song_pre_save(sender, instance, *args, **kwargs):
             # This song is being added via a script and is already probably
             # in the music directory.
             file_path = instance.file.path
-        # New Song, scan ID3 tags for file.
-        instance.populate_from_id3_tags(file_path, file_name)
+        if file_name.endswith('.mp4') or file_name.endswith('.m4a'):
+            # MP4/M4A, analyze with appropriate tags.
+            instance.populate_from_mp4_tags(file_path, file_name)
+        else:
+            # New Song, scan ID3 tags for file.
+            instance.populate_from_id3_tags(file_path, file_name)
+            
 signals.pre_save.connect(song_pre_save, sender=Song)
 
 def song_pre_delete(sender, instance, *args, **kwargs):
