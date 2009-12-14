@@ -19,7 +19,7 @@ function setup_song_datatable(datasource_url) {
 				myPaginator;
 	
 			// Define the DataTable's columns
-			myColumnDefs = [{key:"artist", label:"Song", sortable:false,
+			myColumnDefs = [{key:"title", label:"Song", sortable:false,
 				width:"25%"}];
 		
 			// Create a new DataSource
@@ -32,7 +32,7 @@ function setup_song_datatable(datasource_url) {
 			// Define the structure of the DataSource data.
 		    myDataSource.responseSchema = {
 		        resultsList: "contents.results",
-		        fields: ["artist"],
+		        fields: ["title"],
 		        metaFields: {
 		            totalRecords: "contents.record_count"
 		    	}
@@ -52,8 +52,8 @@ function setup_song_datatable(datasource_url) {
 			// Create the DataTable.
 			myDataTable = new DataTable("song_dtable", myColumnDefs, myDataSource, myConfigs);
 	        // Enable row highlighting
-			myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
-			myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
+			//myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
+			//myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
 			myDataTable.subscribe("rowClickEvent", myDataTable.onEventSelectRow);
 	
 			// Define an event handler that scoops up the totalRecords which we sent as

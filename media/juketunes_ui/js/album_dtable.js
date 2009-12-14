@@ -19,7 +19,7 @@ function setup_album_datatable(datasource_url) {
 				myPaginator;
 	
 			// Define the DataTable's columns
-			myColumnDefs = [{key:"artist", label:"Album", sortable:false}];
+			myColumnDefs = [{key:"album", label:"Album", sortable:false}];
 		
 			// Create a new DataSource
 			myDataSource = new XHRDataSource(datasource_url +"?");
@@ -31,7 +31,7 @@ function setup_album_datatable(datasource_url) {
 			// Define the structure of the DataSource data.
 		    myDataSource.responseSchema = {
 		        resultsList: "contents.results",
-		        fields: ["artist"],
+		        fields: ["album"],
 		        metaFields: {
 		            totalRecords: "contents.record_count"
 		    	}
@@ -51,8 +51,8 @@ function setup_album_datatable(datasource_url) {
 			// Create the DataTable.
 			myDataTable = new DataTable("album_dtable", myColumnDefs, myDataSource, myConfigs);
 	        // Enable row highlighting
-			myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
-			myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
+			//myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
+			//myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
 			myDataTable.subscribe("rowClickEvent", myDataTable.onEventSelectRow);
 	
 			// Define an event handler that scoops up the totalRecords which we sent as

@@ -18,8 +18,8 @@
           var AlbumTable;
           var SongTable;
           setup_artist_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
-          setup_album_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
-          setup_song_datatable("{% url juketunes_ui-ajax_get_artist_list %}");
+          setup_album_datatable("{% url juketunes_ui-ajax_get_album_list %}");
+          setup_song_datatable("{% url juketunes_ui-ajax_get_song_list %}");
         }
     });
     loader.insert();

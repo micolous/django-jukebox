@@ -52,8 +52,8 @@ function setup_artist_datatable(datasource_url) {
 			// Create the DataTable.
 			myDataTable = new DataTable("artist_dtable", myColumnDefs, myDataSource, myConfigs);
 	        // Enable row highlighting
-			myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
-			myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
+			//myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
+			//myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
 			myDataTable.subscribe("rowClickEvent", myDataTable.onEventSelectRow);
 	
 			// Define an event handler that scoops up the totalRecords which we sent as

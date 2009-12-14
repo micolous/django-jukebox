@@ -31,8 +31,21 @@ body {
 #dtables_div {
 	height:85%;
 }
-#artist_dtable, #album_dtable, #song_dtable {
+#artist_dtable {
+    height:94%;
+    width:20%;
+    float:left;
+}
+#album_dtable {
+    height:94%;
+    width:20%;
+    float:left;
+}
+#song_dtable {
 	height:94%;
-	width:33%;
+	width:60%;
 	float:left;
+}
+.yui-dt-liner {
+	font-size:11px;
 }
