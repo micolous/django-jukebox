@@ -86,7 +86,17 @@ function setup_album_datatable(datasource_url) {
 		 * the column sorting state as well.
 		 */
 		requestBuilder: function (oState, oSelf) {
-			return "&blah=";
+			var rows = ArtistTable.myDataTable.getSelectedRows();
+			//alert(rows.length);
+			if (rows.length > 0) {
+				var rset = ArtistTable.myDataTable.getRecordSet();
+				for (i = 0; i < rows.length; i++) {
+					var artist=rset.getRecord(rows[i]).getData('artist');
+					return "&artist="+ artist
+				}
+			} else {
+				return "";
+			}
 		},
 	
 		/**

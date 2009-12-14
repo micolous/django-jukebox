@@ -20,7 +20,7 @@ function setup_song_datatable(datasource_url) {
 	
 			// Define the DataTable's columns
 			myColumnDefs = [{key:"title", label:"Song", sortable:false,
-				width:"25%"}];
+				width:"100%", minWidth:"100%"}];
 		
 			// Create a new DataSource
 			myDataSource = new XHRDataSource(datasource_url +"?");

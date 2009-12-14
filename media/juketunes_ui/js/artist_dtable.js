@@ -44,6 +44,7 @@ function setup_artist_datatable(datasource_url) {
 	        	dynamicData: true,
 	        	height:"100%",
 	        	width:"100%",
+	        	selectionMode:"single",
 				// This configuration item is what builds the query string
 				// passed to the DataSource.
 				generateRequest: this.requestBuilder
@@ -55,6 +56,10 @@ function setup_artist_datatable(datasource_url) {
 			//myDataTable.subscribe("rowMouseoverEvent", myDataTable.onEventHighlightRow);
 			//myDataTable.subscribe("rowMouseoutEvent", myDataTable.onEventUnhighlightRow);
 			myDataTable.subscribe("rowClickEvent", myDataTable.onEventSelectRow);
+			myDataTable.subscribe("rowSelectEvent", function(oArgs) {
+				//alert(oArgs.record.getData('artist'));
+				AlbumTable.fireDT(false);
+			});
 	
 			// Define an event handler that scoops up the totalRecords which we sent as
 			// part of the JSON data. This is then used to tell the paginator the total records.
