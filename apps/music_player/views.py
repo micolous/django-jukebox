@@ -35,12 +35,21 @@ def music_player_main(request):
                               context_instance)
     
 def process_song_upload(request):
+    print request.FILES
     if request.POST:
-        form = SongUploadForm(request.POST)
+        form = SongUploadForm(request.POST, request.FILES)
     else:
         return HttpResponse("No data")
-    return HttpResponse("YAY")
-
+    
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('music_player-edit_song',
+                                            args=[form.instance.id]))
+    else:
+        print request.POST
+        print form.fields['file']
+        print form.errors
+        return HttpResponse("Invalid data")
 
 class SongEditForm(ModelForm):
     """

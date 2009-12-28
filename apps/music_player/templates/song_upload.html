@@ -1,7 +1,7 @@
 <h2>UPLOAD</h2>  
 <div>
-  <form method="POST" action="{% url music_player-process_song_upload %}">
+  <form enctype="multipart/form-data" method="POST" action="{% url music_player-process_song_upload %}">
     {{song_upload_form.file}}
-    <input type="submit" value="Submit"></input>
+    <input type="submit" value="Submit" id="id_submit" name="submit" />
   </form>
 </div>
