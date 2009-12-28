@@ -1,7 +1,11 @@
 <h2>UPLOAD</h2>  
 <div>
+{% if request.user.is_authenticated %}
   <form enctype="multipart/form-data" method="POST" action="{% url music_player-process_song_upload %}">
     {{song_upload_form.file}}
     <input type="submit" value="Submit" id="id_submit" name="submit" />
   </form>
+{% else %}
+  You must be logged in to upload songs.
+{% endif %}
 </div>
