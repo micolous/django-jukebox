@@ -12,4 +12,5 @@ def common_urls(request):
     """
     return {
         'YUI_URL': settings.YUI_URL,
+        'PROGRAM_NAME': settings.PROGRAM_NAME,
     }

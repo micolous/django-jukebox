@@ -7,10 +7,28 @@
 {% block body %}
 <div id="yui-main">
   <form method='post'>
-  <table>
-  {{form}}
-  </table>
-  <input type="submit" value="Submit"></input>
+  <dl>
+    <dt>File Name</dt>
+    <dd>{{form.instance.file.name}}</dd>
+    
+    <dt>Artist</dt>
+    <dd>{{form.artist}}</dd>
+    
+    <dt>Album</dt>
+    <dd>{{form.album}}</dd>
+    
+    <dt>Title</dt>
+    <dd>{{form.title}}</dd>
+    
+    <dt>Disc Number</dt>
+    <dd>{{form.disc_number}}</dd>
+    
+    <dt>Track Number</dt>
+    <dd>{{form.track_number}}</dd>
+    
+    <dt>&nbsp;</dt>
+    <dd><input type="submit" value="Submit"></input></dd>
+  </dl>
   </form>
 </div>
 {% endblock %}
