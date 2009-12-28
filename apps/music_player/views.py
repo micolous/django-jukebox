@@ -5,12 +5,21 @@ from django.conf import settings
 from django import forms
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.forms import ModelForm
 from django.db.models import Q
+from django.core.urlresolvers import reverse
 from apps.music_db.models import Song
 from apps.music_player.models import SongRequest
 from includes.json import JSMessage
+
+class SongUploadForm(ModelForm):
+    """
+    File Upload form.
+    """
+    class Meta:
+        model = Song
+        fields = ('file',)
 
 def music_player_main(request):
     """
@@ -18,11 +27,46 @@ def music_player_main(request):
     """
     pagevars = {
         "page_title": settings.PROGRAM_NAME,
+        "song_upload_form": SongUploadForm(),
     }
 
     context_instance = RequestContext(request)
     return render_to_response('index.html', pagevars, 
                               context_instance)
+    
+def process_song_upload(request):
+    if request.POST:
+        form = SongUploadForm(request.POST)
+    else:
+        return HttpResponse("No data")
+    return HttpResponse("YAY")
+
+
+class SongEditForm(ModelForm):
+    """
+    File Upload form.
+    """
+    class Meta:
+        model = Song
+        fields = ('artist', 'album', 'title', 'disc_number', 'track_number')
+
+def edit_song(request, song_id):
+    pagevars = {}
+    song = get_object_or_404(Song, id=song_id)
+    
+    if request.POST:
+        form = SongEditForm(request.POST, instance=song)
+    else:
+        form = SongEditForm(instance=song)
+    pagevars['form'] = form
+
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('music_player_main'))
+
+    context_instance = RequestContext(request)
+    return render_to_response('song_edit_form.html', pagevars, 
+                              context_instance)            
 
 def display_song_queue(request):
     """
@@ -82,14 +126,6 @@ def song_search(request):
     context_instance = RequestContext(request)
     return render_to_response('song_search.html', pagevars, 
                               context_instance)
-    
-class SongUploadForm(ModelForm):
-    """
-    File Upload form.
-    """
-    class Meta:
-        model = Song
-        fields = ('file')
         
 def song_upload(request):
     """

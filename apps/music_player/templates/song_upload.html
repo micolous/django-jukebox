@@ -1,9 +1,7 @@
-	<h2>UPLOAD</h2>  
-    <div>
-    Coming Soon...
-    <!-- 
-    	<form>
-    		<input type="file" name="file" id="id_file" />
-		</form>
-	 -->
-	</div>
+<h2>UPLOAD</h2>  
+<div>
+  <form method="POST" action="{% url music_player-process_song_upload %}">
+    {{song_upload_form.file}}
+    <input type="submit" value="Submit"></input>
+  </form>
+</div>

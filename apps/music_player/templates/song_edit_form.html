@@ -1,0 +1,16 @@
+{% extends "standard.html" %}
+
+{% block extra_head %}
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/default.css" type="text/css" />
+{% endblock %} 
+
+{% block body %}
+<div id="yui-main">
+  <form method='post'>
+  <table>
+  {{form}}
+  </table>
+  <input type="submit" value="Submit"></input>
+  </form>
+</div>
+{% endblock %}

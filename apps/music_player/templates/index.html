@@ -77,6 +77,9 @@
 		}
 
    		function on_load() { 
+            {% if request.GET.msg %}
+            alert("{{request.GET.msg}}");
+            {% endif %}
    			load_song_queue();
    			load_song_search();
    			load_song_search_results()
@@ -89,43 +92,20 @@
 {% endblock %} 
 
 {% block body %}
-<div id="doc" class="yui-t3">
-	<div id="hd" role="banner">
-		<img src="{{MEDIA_URL}}img/jukebox.png" height="44px" width="32px" /> 
-		<h1>{{page_title}}</h1>
-	</div>
-  	<div id="bd" role="main">
-		<div id="yui-main">
-			<div class="yui-b">
-				<div id="song_search" class="yui-g">
-					{% include "song_search.html" %}
-				</div>
-				<div id="song_search_results" class="yui-g">
-					{% include "song_results.html" %}
-				</div>
-				<div id="upload_tool" class="yui-g">
-					{% include "song_upload.html" %}
-				</div>
-			</div>
+<div id="yui-main">
+	<div class="yui-b">
+		<div id="song_search" class="yui-g">
+			{% include "song_search.html" %}
 		</div>
-		<div id="song_queue" class="yui-b">
-			{% include "song_list.html" %}
+		<div id="song_search_results" class="yui-g">
+			{% include "song_results.html" %}
+		</div>
+		<div id="upload_tool" class="yui-g">
+			{% include "song_upload.html" %}
 		</div>
 	</div>
-  	<div id="ft" role="contentinfo">
-  		<p style='float:left;width:25%'>
-  		  Powered by 
-  		  <a href="http://code.google.com/p/django-jukebox/">Django JukeBox.</a>
-  		</p>
-  		<p style='float:left;width:75%;text-align:right'>
-  		{% if request.user.is_authenticated %}
-  		  Logged in as {{request.user}}.&nbsp;&nbsp;&nbsp; 
-  		  <a href="{% url logout %}">[Logout]</a>
-  		{% else %}
-  		  Not logged in.&nbsp;&nbsp;&nbsp;
-  		  <a href="{% url login %}">[Login]</a>
-  		{% endif %}
-  		</p>
-  	</div>
+</div>
+<div id="song_queue" class="yui-b">
+	{% include "song_list.html" %}
 </div>
 {% endblock %}

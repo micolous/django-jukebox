@@ -159,7 +159,6 @@ INSTALLED_APPS = (
     'apps.accounts',
     'apps.music_db',
     'apps.music_player',
-    'apps.music_uploader',
     'apps.juke_daemon',
     'apps.juketunes_ui',
 )
