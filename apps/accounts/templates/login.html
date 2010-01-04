@@ -7,16 +7,18 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-  <h1>Login</h1>
+<div class="generic_section_header" class="yui-g">
+  <h2>LOGIN</h2>
   <p>
     In order to gain access to all of the features the site has to offer, you
-    must login.<br /><br />
+    must login.
   </p>
 
-  <div style="width:200px;text-align:center;margin:0 auto">
+  <div style="width:200px;">
   <form method="POST" action="/accounts/login/">        
-    {{form}}
+    {{form.as_p}}
     <input class="button" type="submit" value="Login" />
   </form>  
   </div>
+</div>
 {% endblock %} 

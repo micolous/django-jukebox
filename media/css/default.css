@@ -47,41 +47,21 @@ span.bold { font-weight:bold; }
 #currently_playing_rating {
 	float:right;
 }
-
-#song_queue { background-color: #edebf8;
-			  background-image:url('/media/img/bg_fade.jpg');
-			  background-repeat:repeat-x;
-			  margin: 4px;
-		  	  padding: 3px;
-			}
+.generic_section_header, #song_queue, #song_search, #song_search_results,
+#upload_tool {
+    background-color: #edebf8;
+    background-image:url('/media/img/bg_fade.jpg');
+    background-repeat:repeat-x;
+    margin: 4px;
+    padding: 3px;
+}
 #song_queue li { font-size: 10px;
 				 list-style-type: none;
-				}
-			 
-#song_search { 	background-color: #edebf8;
-				background-image:url('/media/img/bg_fade.jpg');
-				background-repeat:repeat-x;
-				margin: 4px;
-		  		padding: 4px;
-			  }
-			 
-#song_search_results { background-color: #edebf8;
-						background-image:url('/media/img/bg_fade.jpg');
-						background-repeat:repeat-x;
-						margin: 4px;
-		  	  			padding: 4px;
-					}
+}			 
 #song_search_results li { font-size: 10px;
-						  list-style-type: none;}
-
-
-#upload_tool {  background-color: #edebf8;
-				background-image:url('/media/img/bg_fade.jpg');
-				background-repeat:repeat-x;
-				margin: 4px;
-		  	    padding: 4px;
-			  }
-					
+						  list-style-type: none;
+}
+#upload_tool { padding: 4px; }					
 #ft { background-color: #DDDDDD;
 	  	font-size: 9px;
 	  	margin: 4px;
