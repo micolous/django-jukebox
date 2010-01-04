@@ -6,10 +6,11 @@ from django import forms
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
+from django import forms
 from django.forms import ModelForm
 from django.db.models import Q
 from django.core.urlresolvers import reverse
-from apps.music_db.models import Song
+from apps.music_db.models import Song, SongRating, SONG_RATINGS
 from apps.music_player.models import SongRequest
 from includes.json import JSMessage
 
@@ -60,6 +61,9 @@ class SongEditForm(ModelForm):
         fields = ('artist', 'album', 'title', 'disc_number', 'track_number')
 
 def edit_song(request, song_id):
+    """
+    Renders the song editing page.
+    """
     pagevars = {}
     song = get_object_or_404(Song, id=song_id)
     
@@ -75,7 +79,86 @@ def edit_song(request, song_id):
 
     context_instance = RequestContext(request)
     return render_to_response('song_edit_form.html', pagevars, 
-                              context_instance)            
+                              context_instance)
+
+class SongRatingForm(ModelForm):
+    """
+    This form is used in the Currently Playing bar at the top. It is only
+    really used for rendering, not validation.
+    """
+    class Meta:
+        model = SongRating
+        fields = ('rating',)
+        
+    def __init__(self, *args, **kwargs):
+        super(SongRatingForm, self).__init__(*args, **kwargs)
+        
+        # In very rare instances, we might not have a current song playing.
+        # Rather than throw server errors, just send a -1, which the
+        # Javascript understands means no song.
+        if self.instance:
+            song_id = self.instance.song.id
+        else:
+            song_id = -1
+        
+        # Set the JavaScript event handler for sending ratings.
+        self.fields["rating"].widget.attrs = {
+            'onchange': 'javascript:rating_change_handler(%s)' % song_id
+        }
+    
+def display_currently_playing(request):
+    """
+    The logic for the "CURRENTLY PLAYING" header at the top. Also renders the
+    drop-down for rating songs.
+    """
+    try:
+        currently_playing_track = SongRequest.objects.filter(time_played__isnull=False).order_by('-time_played')[0]
+    except IndexError:
+        currently_playing_track = None
+        
+    pagevars = {
+        "currently_playing_track": currently_playing_track,
+    }
+    
+    if currently_playing_track and request.user.is_authenticated():
+        # Only allow logged in users to rate songs.
+        rating, created = SongRating.objects.get_or_create(
+                                        song=currently_playing_track.song,
+                                        user=request.user)
+        # Make this a bound form.
+        form = SongRatingForm(instance=rating)
+    else:
+        form = None
+        
+    pagevars["rating_form"] = form
+
+    context_instance = RequestContext(request)
+    return render_to_response('currently_playing.html', pagevars, 
+                              context_instance)
+    
+def rate_song(request, song_id, rating):
+    """
+    Rates a song.
+    """
+    song = get_object_or_404(Song, id=song_id)
+
+    request_user = request.user
+    if not request.user.is_authenticated():
+        # Can't store AnonymousUser objects in a ForeignKey to User.
+        # Only allow auth'd users to rate.
+        return HttpResponse(JSMessage("User not authenticated.", 
+                                      is_error=True))
+    else:
+        rating_obj, created = SongRating.objects.get_or_create(song=song, 
+                                                           user=request.user)
+        if rating < 0:
+            # A rating of 0 means no rating. Let them un-rate songs they
+            # have rated, like iTunes.
+            rating = None
+
+        rating_obj.rating = rating
+        rating_obj.save()
+        return HttpResponse(JSMessage("Rating sent."))
 
 def display_song_queue(request):
     """
@@ -161,7 +244,8 @@ def song_search_results(request, qset=Song.objects.all()):
             qset = qset.filter(Q(artist__icontains=s_search) |
                                Q(title__icontains=s_search) |
                                Q(album__icontains=s_search) |
-                               Q(genre__icontains=s_search)).order_by('artist', 'title')
+                               Q(genre__icontains=s_search)).order_by('artist', 
+                                                                      'title')
     else:
         qset = qset.order_by('?')[:10]
         

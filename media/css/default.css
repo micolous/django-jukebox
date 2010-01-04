@@ -24,16 +24,35 @@ ul { margin: 4px; }
 
 .inline { display:inline; }
 .white_text { color: #ffffff; }
+span.bold { font-weight:bold; }
 #inline_submit { display:inline; }
 
 .instructions { font-size: 10px; font-style: italic; }
 
 /* MODULE STYLES */
+#currently_playing {
+	background-color: #edebf8;
+    background-image:url('/media/img/bg_fade.jpg');
+    background-repeat:repeat-x;
+    margin: 4px;
+    padding: 4px;
+}
+#currently_playing_text, #currently_playing_rating { 
+	padding: 5px;
+	padding-bottom:2px;
+}
+#currently_playing_text {
+	float:left;
+}
+#currently_playing_rating {
+	float:right;
+}
+
 #song_queue { background-color: #edebf8;
 			  background-image:url('/media/img/bg_fade.jpg');
 			  background-repeat:repeat-x;
 			  margin: 4px;
-		  	  padding: 4px;
+		  	  padding: 3px;
 			}
 #song_queue li { font-size: 10px;
 				 list-style-type: none;

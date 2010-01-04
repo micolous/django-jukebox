@@ -5,10 +5,7 @@
 		<li class="recently_played_track">{{request.song.artist}} - {{request.song.title}}</li>
 	{% endfor %}
 	<li class="currently_playing_track">
-		<span style="font-style:italic;">Now Playing...</span><br />
-		<span>Artist:</span> {{currently_playing_track.song.artist}}<br />
-		<span>Track:</span> {{currently_playing_track.song.title}}<br />
-		<span>Album:</span> {{currently_playing_track.song.album}}<br />
+		{{currently_playing_track.song.artist}} - {{currently_playing_track.song.title}}
 	</li>
 	{% for request in upcoming_requested_tracks %}	
 		<li class="upcoming_requested_track">{{request.song}} [{{request.requester}}]</li>

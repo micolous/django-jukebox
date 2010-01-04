@@ -171,10 +171,16 @@ def song_pre_delete(sender, instance, *args, **kwargs):
     instance.file.delete()
 signals.pre_delete.connect(song_pre_delete, sender=Song)
 
+SONG_RATINGS = (
+    (1, '1 - Lousy'),
+    (2, '2 - Meh'),
+    (3, '3 - Good'),
+    (4, '4 - Epic'),
+)
 class SongRating(models.Model):
     """
     Represents a rating for a song, as provided by an authenticated User.
     """
     song = models.ForeignKey(Song)
     user = models.ForeignKey(User)
-    rating = models.FloatField()
+    rating = models.IntegerField(blank=True, null=True, choices=SONG_RATINGS)

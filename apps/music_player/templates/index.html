@@ -49,7 +49,11 @@
 			new Ajax.PeriodicalUpdater('song_queue', 
 					'{% url music_player-display_song_queue_div %}', {
 				  method: 'get', frequency: 8, decay: 1
-				});		
+				});
+			new Ajax.PeriodicalUpdater('currently_playing', 
+                    '{% url music_player-display_currently_playing_div %}', {
+                  method: 'get', frequency: 8, decay: 1
+                }); 		
 		}
 		
 		function search_request() {
@@ -76,14 +80,27 @@
 			}});
 		}
 
+	    function rating_change_handler(song_id) {
+		    if (song_id < 1)
+			    return;
+
+		    var rating_value = $('id_rating').value;
+		    if (rating_value < 1)
+			    // If the rating is less than 1, the user has selected the
+			    // dashed default option. This is analogous to a null rating.
+			    // Server understands that 0 == None for ratings.
+			    rating_value = 0;
+		    new Ajax.Request('/rate_song/' + song_id +'/'+ rating_value +'/');
+	    }
+		
    		function on_load() { 
             {% if request.GET.msg %}
             alert("{{request.GET.msg}}");
             {% endif %}
    			load_song_queue();
    			load_song_search();
-   			load_song_search_results()
-   			periodically_update_queue()
+   			load_song_search_results();
+   			periodically_update_queue();
 		}
 
 		window.onload=on_load();
@@ -92,6 +109,9 @@
 {% endblock %} 
 
 {% block body %}
+<div id="currently_playing" class="yui-g">
+    {% include "currently_playing.html" %}
+</div>
 <div id="yui-main">
 	<div class="yui-b">
 		<div id="song_search" class="yui-g">

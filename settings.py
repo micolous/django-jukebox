@@ -20,11 +20,11 @@ MUSIC_DIR = os.path.join(MEDIA_ROOT, MUSIC_DIR_NAME)
 # Name as it should be displayed in the application header/title/etc...
 PROGRAM_NAME = "django-jukebox"
 
-RANDOM_REQ_GOOD_RATED_SONGS = 8
+RANDOM_REQ_GOOD_RATED_SONGS = 10
 # Any song with a rating greater or equal to this value is considered 'good'.
 RANDOM_REQ_GOOD_RATING = 3
 # The number of songs with no rating in a random playlist.
-RANDOM_REQ_UPCOMING = 4
+RANDOM_REQ_UPCOMING = 6
 # Songs that have more than this number of ratings can no longer be
 # considered 'upcoming'.
 RANDOM_REQ_UPCOMING_MAX_RATINGS = 4
