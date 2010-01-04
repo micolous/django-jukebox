@@ -7,5 +7,7 @@
     <span class="bold">Album:</span> {{currently_playing_track.song.album}}
 </div>
 <div id="currently_playing_rating">
+{% if rating_form %}
 Your Rating: {{rating_form.rating}}
+{% endif %}
 </div>
