@@ -184,3 +184,16 @@ class SongRating(models.Model):
     song = models.ForeignKey(Song)
     user = models.ForeignKey(User)
     rating = models.IntegerField(blank=True, null=True, choices=SONG_RATINGS)
+
+def songrating_pre_save(sender, instance, *args, **kwargs):
+    """
+    Recaculate the Song's average rating.
+    """
+    song = instance.song
+    song_ratings = song.songrating_set.filter(rating__isnull=False)
+    song_num_ratings = song_ratings.count()
+    aggregates = song_ratings.aggregate(models.Avg('rating'))
+    song.rating = aggregates['rating__avg']
+    song.num_ratings = song_num_ratings
+    song.save()
+signals.pre_save.connect(songrating_pre_save, sender=SongRating)    
