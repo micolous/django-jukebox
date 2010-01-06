@@ -184,6 +184,9 @@ class SongRating(models.Model):
     song = models.ForeignKey(Song)
     user = models.ForeignKey(User)
     rating = models.IntegerField(blank=True, null=True, choices=SONG_RATINGS)
+    
+    class Meta:
+        unique_together = ("song", "user")
 
 def songrating_pre_save(sender, instance, *args, **kwargs):
     """
