@@ -188,7 +188,7 @@ class SongRating(models.Model):
     class Meta:
         unique_together = ("song", "user")
 
-def songrating_pre_save(sender, instance, *args, **kwargs):
+def songrating_post_save(sender, instance, created, *args, **kwargs):
     """
     Recaculate the Song's average rating.
     """
@@ -199,4 +199,4 @@ def songrating_pre_save(sender, instance, *args, **kwargs):
     song.rating = aggregates['rating__avg']
     song.num_ratings = song_num_ratings
     song.save()
-signals.pre_save.connect(songrating_pre_save, sender=SongRating)    
+signals.post_save.connect(songrating_post_save, sender=SongRating)    
