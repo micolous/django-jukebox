@@ -7,7 +7,7 @@
 {% block body %}
 <div class="generic_section_header" class="yui-g">
 <h2>Edit Song Details</h2>
-  <form method='post'>
+  <form method='post'> {% csrf_token %}
   <dl>
     <dt>File Name</dt>
     <dd>{{form.instance.file.name}}</dd>
