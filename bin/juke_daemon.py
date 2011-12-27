@@ -16,7 +16,7 @@ sys.path.insert(0, project_dir)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 # Back to the ordinary imports
 from django.conf import settings
-from twisted.internet import reactor
+#from twisted.internet import reactor
 from apps.juke_daemon import daemon as juke_daemon
 
 #with daemon.DaemonContext():

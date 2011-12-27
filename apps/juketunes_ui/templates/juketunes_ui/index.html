@@ -1,10 +1,10 @@
 {% extends "standard.html" %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{MEDIA_URL}}juketunes_ui/css/base.css" type="text/css" />
-<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/artist_dtable.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/album_dtable.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}juketunes_ui/js/song_dtable.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}juketunes_ui/css/base.css" type="text/css" />
+<script type="text/javascript" src="{{STATIC_URL}}juketunes_ui/js/artist_dtable.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}juketunes_ui/js/album_dtable.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}juketunes_ui/js/song_dtable.js"></script>
 <script type="text/javascript" src="{{YUI_URL}}build/yuiloader/yuiloader-min.js"></script>
 <script type="text/javascript">
     var loader = new YAHOO.util.YUILoader({

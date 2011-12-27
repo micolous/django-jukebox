@@ -45,9 +45,10 @@ ALLOW_ANON_REQUESTS = False
 # A list formatted for subprocess.call().
 CLI_PLAYER_COMMAND_STR = ['mplayer', '-really-quiet', '-af', 'volume']
 
-DEBUG = False
+# Change this in production.
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-DJANGO_SERVE_MEDIA = False
+DJANGO_SERVE_MEDIA = True
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -79,13 +80,6 @@ LDAP_HOST = 'ldap://some.ldaphost.com'
 # The DN to authenticate users to for authentication.
 LDAP_USER_BIND_DN = 'uid=%s,cn=users,dc=some,dc=ldaphost,dc=com'
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = 'America/New_York'
-
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -100,6 +94,9 @@ USE_I18N = False
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(MAIN_PATH, 'staticfiles')
+STATIC_URL = '/static/'
 
 # URL to a YUI installation.
 YUI_URL = 'http://yui.yahooapis.com/2.8.0r4/'
@@ -127,6 +124,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
     'includes.extra_context.common_urls',
 )
 
@@ -148,19 +146,20 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.admindocs',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.admin',
-    'django.contrib.humanize',
-    'django_extensions',
-    'apps.accounts',
-    'apps.music_db',
-    'apps.music_player',
-    'apps.juke_daemon',
-    'apps.juketunes_ui',
+	'django.contrib.admindocs',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.sessions',
+	'django.contrib.sites',
+	'django.contrib.admin',
+	'django.contrib.humanize',
+	'django.contrib.staticfiles',
+	'django_extensions',
+	'apps.accounts',
+	'apps.music_db',
+	'apps.music_player',
+	'apps.juke_daemon',
+	'apps.juketunes_ui',
 	'south',
 )
 

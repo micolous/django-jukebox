@@ -4,9 +4,9 @@
 </span>
 <ul>
 	{% for song in qset %}
-		<li><a href='javascript:request_song({{song.id}})'><img src="{{MEDIA_URL}}img/icons/control_play.png" style="vertical-align: text-bottom" alt="Request Song" /></a>
+		<li><a href='javascript:request_song({{song.id}})'><img src="{{STATIC_URL}}img/icons/control_play.png" style="vertical-align: text-bottom" alt="Request Song" /></a>
 			{{song}}
-			<!-- <img src="{{MEDIA_URL}}img/icons/cd.png" style="vertical-align: text-bottom" alt="Search on Album" /> -->
+			<!-- <img src="{{STATIC_URL}}img/icons/cd.png" style="vertical-align: text-bottom" alt="Search on Album" /> -->
 		</li>
 	{% endfor %}
 </ul>
