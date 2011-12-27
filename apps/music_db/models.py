@@ -18,8 +18,8 @@ class Song(models.Model):
 	genre = models.CharField(max_length=255, blank=True)
 	# Song length (seconds)
 	length = models.IntegerField(blank=True, null=True)
-	track_number = models.IntegerField(blank=True, null=True)
-	disc_number = models.IntegerField(blank=True, null=True)
+	#track_number = models.IntegerField(blank=True, null=True)
+	#disc_number = models.IntegerField(blank=True, null=True)
 	# If this is True, allow this song to be selected by the random
 	# playback mechanism (in the absence of any queue entries).
 	allow_random_play = models.BooleanField(default=True)
@@ -63,7 +63,7 @@ class Song(models.Model):
 	objects = SongManager()
 
 	class Meta:
-		ordering = ['artist', 'album', 'disc_number', 'track_number', 'title']
+		ordering = ['artist', 'album', 'title']
 	
 	def __unicode__(self):
 		return "%s - %s" % (self.artist, self.title)
@@ -108,16 +108,16 @@ class Song(models.Model):
 			
 			# Track numbers are stored in ID3 tags as '1/10' (track/total tracks)
 			# Split and just store the track number.
-			try:
-				self.track_number = str(tag['TRCK']).split('/')[0]
-			except KeyError:
-				pass
-			
+			#try:
+			#	self.track_number = str(tag['TRCK']).split('/')[0]
+			#except KeyError:
+			#	pass
+			#
 			# Disc sets are treated much the same way.
-			try:
-				self.disc_number = str(tag['TPOS']).split('/')[0]
-			except KeyError:
-				pass
+			#try:
+			#	self.disc_number = str(tag['TPOS']).split('/')[0]
+			#except KeyError:
+			#	pass
 			
 		except mutagen.id3.ID3NoHeaderError:
 			# Invalid ID3 headers. Just use the file name as the title.
