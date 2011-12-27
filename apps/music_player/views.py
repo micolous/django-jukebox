@@ -58,7 +58,7 @@ class SongEditForm(ModelForm):
     """
     class Meta:
         model = Song
-        fields = ('artist', 'album', 'title', 'disc_number', 'track_number')
+        fields = ('artist', 'album', 'title')
 
 def edit_song(request, song_id):
     """
