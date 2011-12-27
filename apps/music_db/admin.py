@@ -6,7 +6,7 @@ from apps.music_db.models import Song
 
 class SongAdmin(admin.ModelAdmin):
     list_display = ('id', 'artist', 'album', 'title', 'disc_number', 
-                    'track_number', 'genre', 'request_count', 'rating', 'file',
+                    'track_number', 'genre', 'request_count', 'rating', 'get_local_path',
                     'allow_random_play')
     list_editable = ('artist', 'album', 'title', 'disc_number', 
                     'track_number', 'genre', 'allow_random_play')

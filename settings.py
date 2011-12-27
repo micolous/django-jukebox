@@ -161,6 +161,7 @@ INSTALLED_APPS = (
     'apps.music_player',
     'apps.juke_daemon',
     'apps.juketunes_ui',
+	'south',
 )
 
 """

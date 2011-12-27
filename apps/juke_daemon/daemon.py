@@ -30,7 +30,7 @@ def play_song(request, requested_by_user=False):
     request.song.save()
     
     print "Playing: %s" % request
-    cmd_list = settings.CLI_PLAYER_COMMAND_STR + [request.song.file.path]
+    cmd_list = settings.CLI_PLAYER_COMMAND_STR + [request.song.get_local_path()]
     call(cmd_list)
 
 def daemon_loop():
