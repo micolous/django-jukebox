@@ -15,7 +15,7 @@
   </p>
 
   <div style="width:200px;">
-  <form method="POST" action="/accounts/login/"> {% csrf_token %}
+  <form method="POST"> {% csrf_token %}
     {{form.as_p}}
     <input class="button" type="submit" value="Login" />
   </form>  
