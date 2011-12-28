@@ -16,8 +16,10 @@
 <body class="yui-skin-sam">
   <div id="doc" class="yui-t3">
     <div id="hd" role="banner">
+		<a href="{% url music_player_main %}">
         <img src="{{STATIC_URL}}img/jukebox.png" height="44px" width="32px" /> 
         <h1>{{PROGRAM_NAME}}</h1>
+		</a>
     </div>
     <div id="bd" role="main">
     {% block body %}
@@ -26,12 +28,13 @@
     <div id="ft" role="contentinfo">
         <p style='float:left;width:25%'>
           Powered by 
-          <a href="http://code.google.com/p/django-jukebox/">Django JukeBox.</a>
+          <a href="https://github.com/micolous/django-jukebox/">Django JukeBox.</a>
         </p>
         <p style='float:left;width:75%;text-align:right'>
         {% if request.user.is_authenticated %}
           Logged in as {{request.user}}.&nbsp;&nbsp;&nbsp; 
           <a href="{% url logout %}">[Logout]</a>
+		  <a href="{% url change_password %}">[Change Password]</a>
         {% else %}
           Not logged in.&nbsp;&nbsp;&nbsp;
           <a href="{% url login %}">[Login]</a>
