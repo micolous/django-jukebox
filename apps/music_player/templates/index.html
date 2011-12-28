@@ -29,7 +29,11 @@
 			 * Fired when he user hits the Search button. Calls the validator
 			 * and sends off an AJAX request if all is good.
 			 */             
-			new Ajax.Request('/request_song/' + song_id +'/', {
+			new Ajax.Request('{% url music_player-ajax-request_song %}', {
+				method: 'post',
+				parameters: {
+					song_id: song_id
+				},
 			    onSuccess: function(http_req) {
 			        // Get a JSON object from the response string (from the server).
 			        jsobj = http_req.responseText.evalJSON();
@@ -90,7 +94,13 @@
 			    // dashed default option. This is analogous to a null rating.
 			    // Server understands that 0 == None for ratings.
 			    rating_value = 0;
-		    new Ajax.Request('/rate_song/' + song_id +'/'+ rating_value +'/');
+		    new Ajax.Request('{% url music_player-ajax-rate_song %}', {
+				method: 'POST',
+				parameters: {
+					song_id: song_id,
+					rating_value: rating_value
+				}
+			});
 	    }
 		
    		function on_load() { 

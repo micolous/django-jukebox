@@ -8,13 +8,13 @@ body {
 #header {
 	width:100%;
 	height:60px;
-	background-image:url('/media/juketunes_ui/img/itunes_gray_gradient.png');
+	background-image:url('../img/itunes_gray_gradient.png');
 	display:block;
 	clear:both;
 	padding-top:1px;
 }
 #current_song_div {
-	background-image:url('/media/juketunes_ui/img/itunes_nplay_bg.png');
+	background-image:url('../img/itunes_nplay_bg.png');
 	width:300px;
 	height:42px;
 	margin:0 auto;
