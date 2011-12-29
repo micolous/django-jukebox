@@ -41,6 +41,9 @@ LIMIT_UPCOMING_SONGS_DISPLAY = 15
 # Maximum number of requests any user may have outstanding before they are refused further requests.
 MAX_OUTSTANDING_REQUESTS_PER_USER = 5
 
+# Maximum song length, in seconds.
+MAX_SONG_LENGTH = 15. * 60.
+
 # When True, allow anonymous users to request songs.
 ALLOW_ANON_REQUESTS = False
 

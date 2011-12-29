@@ -1,7 +1,7 @@
 import os
 import mutagen
-from mutagen.id3 import ID3
-from mutagen.easymp4 import EasyMP4
+from mutagen.mp3 import MP3
+from mutagen.mp4 import MP4
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -80,8 +80,17 @@ class Song(models.Model):
 						 or no tags are found, instead of the scrambled file
 						 name that the temporary upload file uses.
 		"""
+		audio = MP3(file_path)
+		tag = audio.tag
+		
+		# don't worry about catching errors from this, it means it's not an mp3 file.
+		# check file length is not greater than max.
+		
+		if audio.info.length > settings.MAX_SONG_LENGTH:
+			raise Exception, "Audio is longer than maximum allowed."
+			
 		try:
-			tag = ID3(file_path)
+			
 			#print tag
 			# Map ID3 tags to columns in the Song table.
 			# ID3 Reference: http://www.id3.org/id3v2.4.0-frames
@@ -127,8 +136,14 @@ class Song(models.Model):
 		"""
 		Populate record from m4a/mp4 data.
 		"""
+		a = MP4(file_path)
+		tag = a.tags
+		
+		if audio.info.length > settings.MAX_SONG_LENGTH:
+			raise Exception, "Audio is longer than maximum allowed."
+		
 		try:
-			tag = EasyMP4(file_path)
+			
 			#print tag
 			# Map MP4 tags to columns in the Song table.
 			try:
