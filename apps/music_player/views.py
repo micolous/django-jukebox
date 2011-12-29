@@ -116,7 +116,7 @@ def rate_song(request): #, song_id, rating):
 	Rates a song.
 	"""
 	song_id = long(request.POST['song_id'])
-	rating = int(request.POST['song_id'])
+	rating = int(request.POST['rating_value'])
 	
 	song = get_object_or_404(Song, id=song_id)
 
