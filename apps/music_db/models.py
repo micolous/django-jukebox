@@ -81,7 +81,7 @@ class Song(models.Model):
 						 name that the temporary upload file uses.
 		"""
 		audio = MP3(file_path)
-		tag = audio.tag
+		tag = audio.tags
 		
 		# don't worry about catching errors from this, it means it's not an mp3 file.
 		# check file length is not greater than max.
