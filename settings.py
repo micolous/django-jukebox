@@ -44,6 +44,9 @@ MAX_OUTSTANDING_REQUESTS_PER_USER = 5
 # Maximum song length, in seconds.
 MAX_SONG_LENGTH = 15. * 60.
 
+# Minimum song length, in seconds.
+MIN_SONG_LENGTH = 60.
+
 # When True, allow anonymous users to request songs.
 ALLOW_ANON_REQUESTS = False
 

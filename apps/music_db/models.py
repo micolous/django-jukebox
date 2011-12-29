@@ -86,8 +86,12 @@ class Song(models.Model):
 		# don't worry about catching errors from this, it means it's not an mp3 file.
 		# check file length is not greater than max.
 		
+		# TODO: Make this more verbose to the user.
 		if audio.info.length > settings.MAX_SONG_LENGTH:
 			raise Exception, "Audio is longer than maximum allowed."
+		
+		if audio.info.length < settings.MIN_SONG_LENGTH:
+			raise Exception, "Audio is shorter than minimum allowed."
 			
 		try:
 			
@@ -139,9 +143,13 @@ class Song(models.Model):
 		a = MP4(file_path)
 		tag = a.tags
 		
+		# TODO: Make this more verbose to the user.
 		if audio.info.length > settings.MAX_SONG_LENGTH:
 			raise Exception, "Audio is longer than maximum allowed."
 		
+		if audio.info.length < settings.MIN_SONG_LENGTH:
+			raise Exception, "Audio is shorter than minimum allowed."
+			
 		try:
 			
 			#print tag
