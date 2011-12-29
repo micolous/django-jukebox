@@ -38,6 +38,9 @@ NUMBER_OF_PREVIOUS_SONGS_DISPLAY = 5
 # Limit to number of songs in queue to be played.
 LIMIT_UPCOMING_SONGS_DISPLAY = 15
 
+# Maximum number of requests any user may have outstanding before they are refused further requests.
+MAX_OUTSTANDING_REQUESTS_PER_USER = 5
+
 # When True, allow anonymous users to request songs.
 ALLOW_ANON_REQUESTS = False
 

@@ -263,6 +263,8 @@ def request_song(request): #, song_id):
 		# Don't allow requesting a song that is currently in the queue.
 		return HttpResponse(JSMessage("Song has already been requested.", 
 									  is_error=True))
+	elif SongRequest.objects.get_active_requests().filter(requester=request_user).count() >= settings.MAX_OUTSTANDING_REQUESTS_PER_USER:
+		return HttpResponse(JSMessage("You've already got the maximum number of outstanding requests.", is_error=True))
 	else:
 		# Song isn't already in the SongRequest queue, add it.
 		request = SongRequest(song=song, requester=request_user)
