@@ -3,7 +3,7 @@ Views for Music Player interface.
 """
 from django.conf import settings
 from django import forms
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
@@ -48,39 +48,11 @@ def process_song_upload(request):
 	
 	if form.is_valid():
 		form.save()
-		return HttpResponseRedirect(reverse('music_player-edit_song',
-											args=[form.instance.id]))
+		return redirect('music_player_main')
+		#return HttpResponseRedirect(reverse('music_player-edit_song',
+		#									args=[form.instance.id]))
 	else:
 		return HttpResponse("Invalid data")
-
-class SongEditForm(ModelForm):
-	"""
-	File Upload form.
-	"""
-	class Meta:
-		model = Song
-		fields = ('artist', 'album', 'title')
-
-def edit_song(request, song_id):
-	"""
-	Renders the song editing page.
-	"""
-	pagevars = {}
-	song = get_object_or_404(Song, id=song_id)
-	
-	if request.POST:
-		form = SongEditForm(request.POST, instance=song)
-	else:
-		form = SongEditForm(instance=song)
-	pagevars['form'] = form
-
-	if form.is_valid():
-		form.save()
-		return HttpResponseRedirect(reverse('music_player_main'))
-
-	context_instance = RequestContext(request)
-	return render_to_response('song_edit_form.html', pagevars, 
-							  context_instance)
 
 class SongRatingForm(ModelForm):
 	"""
@@ -296,3 +268,18 @@ def request_song(request): #, song_id):
 		request = SongRequest(song=song, requester=request_user)
 		request.save()
 		return HttpResponse(JSMessage("Song Requested."))
+
+@csrf_exempt
+def skip_song(request):
+	if request.method != 'POST':
+		return HttpResponse(JSMessage("Invalid method."))
+	
+	if not request.user.is_authenticated():
+		return HttpResponse(JSMessage("Unauthenticated users aren't allowed to do this."))
+	
+	if not request.user.has_perm('music_player.can_skip_song'):
+		return HttpResponse(JSMessage("You don't have permission to do that."))
+		
+	# TODO: Make this better by implementing the music_daemon better such that we can control
+	# playback of music programatically.
+	

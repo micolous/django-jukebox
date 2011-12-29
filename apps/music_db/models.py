@@ -194,7 +194,8 @@ def song_pre_delete(sender, instance, *args, **kwargs):
 	"""
 	Clean up misc. stuff before a Song is deleted.
 	"""
-	instance.file.delete()
+	if instance.file != None:
+		instance.file.delete()
 signals.pre_delete.connect(song_pre_delete, sender=Song)
 
 SONG_RATINGS = (

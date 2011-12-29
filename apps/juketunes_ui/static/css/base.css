@@ -23,11 +23,12 @@ body {
 #current_song_text_div {
 	width:284px;
 	text-align:center;
-	font-size:11px;
 	font-weight:bold;
 	padding-top:13px;
 	font-family:"Lucida Grande", arial, sans-serif;
 }
+
+
 #dtables_div {
 	height:85%;
 }
