@@ -2,6 +2,6 @@ local_settings.py
 *.pyc
 *.pyo
 *~
-media/*
+media/
 *.db3
-staticfiles/*
+staticfiles/
