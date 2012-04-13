@@ -1,10 +1,10 @@
-= django-jukebox =
+# django-jukebox #
 
 Web-based jukebox system written in Django.
 
 This was a fork containing some patches versus the original project at [Google Code](https://code.google.com/p/django-jukebox/).
 
-= This fork is now _abandoned_. =
+# This fork is now _abandoned_. #
 
 There are huge amount of fundamental security and "gaming" issues with the project, and to fix them would basically require an entire rewrite of the project.
 
